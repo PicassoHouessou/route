@@ -1,25 +1,14 @@
-import {Inject, Injectable} from '@angular/core';
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptorFn } from '@angular/common/http';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-constructor(@Inject('sncfApiKey') private sncfApiKey: string,@Inject('sncfBaseUrl') private sncfBaseUrl: string, private httpClient: HttpClient) {
-}
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     const url= req.url;
-     console.log(url);
-      if (url.startsWith(this.sncfBaseUrl)) {
-        console.log("Here",url);
-        // Clone the request and add the Authorization header
-        const clonedRequest = req.clone({
-          setHeaders: {
-            Authorization: `${this.sncfApiKey}`,
-          },
-        });
-        return next.handle(clonedRequest);
-      }
+export const requestInterceptor: HttpInterceptorFn = (req, next) => {
 
-    return next.handle(req); // If no token, proceed without modification
+  if (req.url.includes('sncf')) {
+    const clonedRequest = req.clone({
+      setHeaders: {
+        'Authorization': '55e88c66-cf4c-49cc-a79c-566a72cbc539',
+      },
+    });
+    return next(clonedRequest);
   }
-}
+  return next(req);
+};
