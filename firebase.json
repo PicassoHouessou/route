@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "route",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

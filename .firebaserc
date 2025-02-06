@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "route-b52d9": {
+      "hosting": {
+        "route": [
+          "route-b52d9"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "route-b52d9"
+  }
+}
