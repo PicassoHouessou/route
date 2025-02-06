@@ -8,8 +8,17 @@ import {ApiServiceService} from "./api-service.service";
 })
 export class AppComponent implements OnInit {
   title = 'route';
+
+  regions:any;
   ngOnInit() {
-    this.apiService.getCommercialModes().subscribe((data)=>console.log(data));
+    try {
+      this.apiService.getCommercialModes().subscribe((data)=>{
+        this.regions=data;
+        console.log(this.regions.commercial_modes);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   constructor(private readonly apiService : ApiServiceService) {

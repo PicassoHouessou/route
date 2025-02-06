@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {catchError, EMPTY, map, Observable} from "rxjs";
+import {catchError, EMPTY, map, Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ApiRoutesWithoutPrefix} from "../config/constant";
 
@@ -7,7 +7,7 @@ import {ApiRoutesWithoutPrefix} from "../config/constant";
     providedIn: 'root',
 })
 export class ApiServiceService {
-     constructor(@Inject('sncfApiKey') private sncfApiKey: string,@Inject('sncfBaseUrl') private sncfBaseUrl: string, private httpClient: HttpClient) {
+     constructor(@Inject('sncfBaseUrl') private sncfBaseUrl: string, private httpClient: HttpClient) {
     }
 
     getLines() {
@@ -20,7 +20,7 @@ export class ApiServiceService {
     getCommercialModes() {
        return this.httpClient.get(`${this.sncfBaseUrl}/${ApiRoutesWithoutPrefix.COMMERCIAL_MODES}`).pipe(
            map((values) => values),
-           catchError((error) => EMPTY)
+           catchError((error) => of(error))
        );
     }
 }

@@ -7,8 +7,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./auth.interceptor";
+import { HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
+import {requestInterceptor} from "./auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -17,7 +17,6 @@ import {AuthInterceptor} from "./auth.interceptor";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     provideFirebaseApp(() => initializeApp({"projectId":"route-b52d9","appId":"1:1077626078503:web:dc907a4199b98b198b5502","storageBucket":"route-b52d9.firebasestorage.app","apiKey":"AIzaSyBI_zlW_mOR1sUX-SiAmMPe0KctPuQXRO4","authDomain":"route-b52d9.firebaseapp.com","messagingSenderId":"1077626078503"})),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
@@ -31,10 +30,7 @@ import {AuthInterceptor} from "./auth.interceptor";
       provide:'sncfBaseUrl',
       useValue:'https://api.sncf.com/v1'
     },
-    {
-      provide:HTTP_INTERCEPTORS,
-      useClass:AuthInterceptor
-    }
+    provideHttpClient(withInterceptors([requestInterceptor]))
   ],
   bootstrap: [AppComponent]
 })
