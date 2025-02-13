@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeModule } from './home/home.module';
 
 registerLocaleData(fr);
 
@@ -31,6 +32,7 @@ registerLocaleData(fr);
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    HomeModule,
     provideFirebaseApp(() => initializeApp({"projectId":"route-b52d9","appId":"1:1077626078503:web:dc907a4199b98b198b5502","storageBucket":"route-b52d9.firebasestorage.app","apiKey":"AIzaSyBI_zlW_mOR1sUX-SiAmMPe0KctPuQXRO4","authDomain":"route-b52d9.firebaseapp.com","messagingSenderId":"1077626078503"})),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
