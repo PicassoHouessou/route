@@ -13,9 +13,9 @@ export class LoginComponent {
   constructor(private readonly authService:AuthService){}
   private readonly router:Router=inject(Router);
   login=new FormGroup({
-    email:new FormControl('',[Validators.email,Validators.required]),
-    password:new FormControl('',[Validators.maxLength(15),Validators.minLength(4),Validators.required])
-  })
+    email:new FormControl('user@email.com',[Validators.email,Validators.required]),
+    password:new FormControl('1234567',[Validators.maxLength(15),Validators.minLength(4),Validators.required])
+  });
 
   async signIn(){
 
