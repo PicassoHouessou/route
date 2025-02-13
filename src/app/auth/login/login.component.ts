@@ -24,7 +24,7 @@ export class LoginComponent {
         const auth=await this.authService.signIn({email:this.login.get('email')?.value,password:this.login.get('password')?.value});
         if (auth.user) {
           this.login.reset();
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/');
         }
       }catch(err){
 
