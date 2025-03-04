@@ -12,18 +12,41 @@
         </svg>
     </a>
     <div class="flex flex-col gap-2 mr-3">
-        <button nz-button nzType="primary" class=" rounded-md" (click)="logOut()">Se déconnecter</button>
-        <h5>{{email}}</h5>
+        <a nz-dropdown [nzDropdownMenu]="menu">
+            <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+            {{email}}
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <a routerLink="/profil" nz-menu-item>Profil</a>
+              <li nz-menu-item (click)="logOut()">Déconnection</li>
+            </ul>
+          </nz-dropdown-menu>
     </div>
 </header>
-<div class="flex flex-col flex-grow overflow-x-hidden overflow-y-auto">
-    <main class="flex-1 mx-5 overflow-x-hidden">
-        <div class="flex items-center flex-col">
-            <pre>{{regions | json }} </pre>
+<div class="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+    <main class="flex-1 grid grid-cols-8 grid-rows-12 mx-2 overflow-x-hidden">
+        <div class="col-span-2 col-start-4 row-span-2 mt-3">           
+            <app-reservation (trajets)="getTraject($event)"/>
+        </div>
+        <div class="row-start-5 mt-6 row-span-full col-span-7 col-start-1 overflow-y-auto">
+            @if (trajets.length>0) {
+                <div class="flex flex-1 text-wrap items-center flex-col">
+                    @for (trajet of trajets; track trajet.id) {
+                        <nz-list nzNoResult nzSplit nzSize="large" [nzHeader]="trajet.arrival_date_time" nzNoResult>
+                            @for (section of trajet.sections; track section.id) {
+                                <nz-list-item>
+                                    {{ section.from.name }}-------------->{{ section.to.name }}
+                                </nz-list-item>
+                            }
+                        </nz-list>
+                    }
+                </div>
+            }
         </div>
     </main>
-    <footer class="h-[50px] shadow flex space-x-2 justify-center items-center">
+    <!-- <footer class="h-[50px] shadow flex space-x-2 justify-center items-center">
         <span>&copy; 2025</span> <span>Routes</span>
-    </footer>
+    </footer> -->
 </div>
 </div>

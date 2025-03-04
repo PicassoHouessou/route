@@ -1,6 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
 import { commercial_modes as Commercial } from '../interfaces/dtos/api';
@@ -11,18 +9,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
-  providers:[NzButtonModule,NzIconModule]
+  styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
 
   constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
      private readonly router:Router){
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-        //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      console.log(aUser);
       this.email=aUser?.email;
-    })
+    });
   }
 
   private auth: Auth = inject(Auth);
@@ -30,6 +26,7 @@ export class HomeComponent implements OnInit {
   userSubscription: Subscription;
 
   email:string | null | undefined='inconnu';
+  trajets:any[]=[];
 
   regions:Commercial[]=[];
   ngOnInit() {
@@ -49,5 +46,10 @@ export class HomeComponent implements OnInit {
     }catch(error){
       console.log(error);
     }
+  }
+
+  getTraject($event: any[]) {
+    this.trajets=$event;
+    console.log($event);
   }
 }

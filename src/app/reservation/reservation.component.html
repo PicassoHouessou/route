@@ -1,0 +1,34 @@
+
+
+  <div class=" w-full h-full">
+    <div class="flex flex-col rounded-md shadow p-4">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your deaparture!">
+                <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
+                  <input formControlName="deaparture" nz-input placeholder="deaparture" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control nzErrorTip="Please input your destination!">
+                <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
+                  <input formControlName="destination" nz-input placeholder="destination" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <div class="flex mb-4 sm:space-x-4">
+                <!-- <input formControlName="date" nz-input placeholder="date de départ" [type]="'date'"/> -->
+                <nz-date-picker formControlName="date" class="flex-1 rounded-s-md" ></nz-date-picker>
+                <nz-time-picker nzFormat="HH:mm:ss" formControlName="hour" class="flex-1 rounded-e-md" nzSize="large"></nz-time-picker>
+                <!-- <input formControlName="hour" class="flex-1 rounded-e-md" placeholder="heure de départ" nz-input [type]="'time'"/> -->
+            </div>
+            <nz-form-item>
+              <nz-form-control >
+                <button nz-button nzSize="large" class="w-full rounded-md text-white bg-blue-500 hover:bg-blue-700">Demander un trajet</button>
+              </nz-form-control>
+            </nz-form-item>
+        
+          </form>
+    </div>
+  </div>

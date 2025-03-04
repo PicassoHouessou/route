@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import {  AuthGuard, redirectUnauthorizedTo,redirectLoggedInTo } from '@angular/fire/auth-guard'; 
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 
 const redirectLoggedInToHome = () => redirectLoggedInTo(['']);
@@ -38,10 +39,16 @@ const routes: Routes = [
     title:'S\'inscrire'
   },
   {
-    path:'profile',
+    path:'profil',
     component:ProfileComponent,
     pathMatch:'full',
     title:'Profile'
+  },
+  {
+    path:'confirm-email',
+    component:ConfirmEmailComponent,
+    pathMatch:'full',
+    title:'ConfirmEmail'
   },
   {
     path:'**',
