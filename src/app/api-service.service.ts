@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {catchError, EMPTY, map, Observable, of} from "rxjs";
+import {catchError, EMPTY, map, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ApiRoutesWithoutPrefix} from "../config/constant";
-import { commercial_modes } from './interfaces/dtos/api';
+import { commercial_modes, ReservetionDto } from './interfaces/dtos/api';
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +23,10 @@ export class ApiServiceService {
            map((values) => values),
            catchError((error) => of(error))
        );
+    }
+
+    getTrajets(reservationInfo:ReservetionDto){
+        return this.httpClient.get<any>(`${this.sncfBaseUrl}/${ApiRoutesWithoutPrefix.JOURNEYS}?from=admin:fr:${reservationInfo.from}&to=admin:fr:${reservationInfo.to}&datetime=${reservationInfo.datetime}`);
+        // return this.httpClient.get<any>(`https://api.sncf.com/v1/coverage/sncf/journeys?from=2.3483915;48.8534951&to=2.373481;48.844945&datetime=20250302T104252`)
     }
 }

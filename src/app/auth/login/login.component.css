@@ -9,3 +9,7 @@
   .ng-untouched:not(form){
     @apply border border-gray-500
   }
+
+  .cacher{
+    @apply hidden
+  }

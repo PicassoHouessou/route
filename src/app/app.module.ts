@@ -8,7 +8,6 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors} from "@angular/common/http";
 import {requestInterceptor} from "./auth.interceptor";
-import { LoginComponent } from './auth/login/login.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { fr_FR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -33,11 +32,17 @@ registerLocaleData(fr);
     AppRoutingModule,
     AuthModule,
     HomeModule,
-    provideFirebaseApp(() => initializeApp({"projectId":"route-b52d9","appId":"1:1077626078503:web:dc907a4199b98b198b5502","storageBucket":"route-b52d9.firebasestorage.app","apiKey":"AIzaSyBI_zlW_mOR1sUX-SiAmMPe0KctPuQXRO4","authDomain":"route-b52d9.firebaseapp.com","messagingSenderId":"1077626078503"})),
+    provideFirebaseApp(() => initializeApp({
+      "projectId":"route-b52d9",
+      "appId":"1:1077626078503:web:dc907a4199b98b198b5502",
+      "storageBucket":"route-b52d9.firebasestorage.app",
+      "apiKey":"AIzaSyBI_zlW_mOR1sUX-SiAmMPe0KctPuQXRO4",
+      "authDomain":"route-b52d9.firebaseapp.com",
+      "messagingSenderId":"1077626078503"})),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     provideAnimationsAsync(),
