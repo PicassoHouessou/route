@@ -33,15 +33,22 @@
             @if (trajets.length>0) {
                 <div class="flex flex-1 text-wrap mx-auto flex-col">
                     @for (trajet of trajets; track trajet.id) {
-                        <nz-list nzNoResult nzSplit nzSize="large" [nzHeader]="trajet.arrival_date_time" nzNoResult>
-                            @for (section of trajet.sections; track section.id) {
-                                @if (section?.from && section?.to) {
-                                    <nz-list-item>
-                                        {{ section.from.name}}-->{{ section.to.name}}
-                                    </nz-list-item>
-                                }
-                            }
-                        </nz-list>
+                        <nz-list nzNoResult nzSplit nzSize="large" [nzHeader]="parseDate(trajet.arrival_date_time)" nzNoResult>
+                            <nz-list-item>
+                                <nz-steps [nzCurrent]="1" nzProgressDot nzDirection="vertical">
+                                    @for (section of trajet.sections; track section.id) {
+                                        @if (section?.from && section?.to) {
+                                            @if ($index<trajet.sections!.length-2) {
+                                                <nz-step [nzTitle]="section.from.name" [nzDescription]="section.from.name"></nz-step>
+                                            }
+                                            @else{
+                                                <nz-step [nzTitle]="section.to.name" [nzDescription]="section.to.name"></nz-step>
+                                            }
+                                        }
+                                    }             
+                                </nz-steps>
+                            </nz-list-item>
+                        </nz-list>   
                     }
                 </div>
             }
