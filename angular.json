@@ -3,7 +3,10 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "7526ecfd-ebf4-4862-a495-17052889b5d9"
+    "analytics": "7526ecfd-ebf4-4862-a495-17052889b5d9",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -45,7 +48,7 @@
             ],
             "styles": [
               "src/theme.less",
-               "src/styles.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -104,7 +107,7 @@
               "src/assets"
             ],
             "styles": [
-               "src/styles.css"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -125,6 +128,15 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
