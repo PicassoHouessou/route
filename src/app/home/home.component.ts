@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
 import { commercial_modes as Commercial } from '../interfaces/dtos/api';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
 
 
   constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       this.email=aUser?.email;
     });
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   private auth: Auth = inject(Auth);
@@ -50,6 +53,5 @@ export class HomeComponent implements OnInit {
 
   getTraject($event: any[]) {
     this.trajets=$event;
-    console.log($event);
   }
 }

@@ -37,7 +37,7 @@
                             @for (section of trajet.sections; track section.id) {
                                 @if (section?.from && section?.to) {
                                     <nz-list-item>
-                                        {{ section.from?.name }}-->{{ section.to?.name }}
+                                        {{ section.from.name}}-->{{ section.to.name}}
                                     </nz-list-item>
                                 }
                             }

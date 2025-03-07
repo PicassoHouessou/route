@@ -25,8 +25,8 @@ export enum ApiFormat {
 export enum ApiRoutesWithoutPrefix {
     LOGS = '/logs',
     COVERAGE_SANDBOX_LINES = '/coverage/sandbox/lines',
-    COMMERCIAL_MODES = '/coverage/sncf/commercial_modes',
-    JOURNEYS = 'coverage/sncf/journeys',
+    COMMERCIAL_MODES = 'commercial_modes',
+    JOURNEYS = 'journeys',
      USERS = '/users',
     MODULE_TYPES = '/module_types',
     MODULE_HISTORIES = '/module_histories',
