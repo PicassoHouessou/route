@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ConfirmEmailComponent } from '../confirm-email/confirm-email.component';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 
 
 
@@ -17,7 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,RouterModule,NzDividerModule,NzModalModule,NzButtonModule
+    FormsModule,RouterModule,NzDividerModule,NzModalModule
   ]
 })
 export class AuthModule { }
