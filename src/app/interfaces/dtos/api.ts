@@ -37,3 +37,32 @@ export interface AutoCompleteItem{
     }
     embedded_type?:string;
 }
+
+export interface JourneyItem{
+    id?:string;
+    sections?:SectionItem[];
+    fare?:[];
+    status?:string;
+    type?: string;
+    nb_transfers?: number;
+    duration?: number;
+    requested_date_time?:string;
+    departure_date_time?: string;
+    arrival_date_time?: string;
+    calendars?: any[];
+    co2_emission?: any;
+}
+
+export interface SectionItem{
+    id:string;
+    from: any;
+    to: any;
+    arrival_date_time: string;
+    departure_date_time: string;
+    duration: 930,
+    type: string,
+    mode: string;
+    geojson: any;
+    path: any[];
+    links:any[];
+}

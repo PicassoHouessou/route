@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
-import { commercial_modes as Commercial } from '../interfaces/dtos/api';
+import { commercial_modes as Commercial, JourneyItem } from '../interfaces/dtos/api';
 import { Auth, User, user } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { parseDate } from '../../config/util.date';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit,OnDestroy {
+parseDate(arg0: string|undefined): string{
+  return parseDate(arg0!).toString();
+}
 
 
   constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
@@ -29,7 +33,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   userSubscription: Subscription;
 
   email:string | null | undefined='inconnu';
-  trajets:any[]=[];
+  trajets:JourneyItem[]=[];
 
   regions:Commercial[]=[];
   ngOnInit() {
