@@ -29,14 +29,14 @@
         <div class="col-span-2 col-start-4 row-span-2 mt-3">           
             <app-reservation (trajets)="getTraject($event)"/>
         </div>
-        <div class="row-start-5 mt-6 row-span-full col-span-7 col-start-1 overflow-y-auto">
+        <div class="row-start-5 mt-6 row-span-full col-span-8 col-start-1 overflow-y-auto">
             @if (trajets.length>0) {
-                <div class="flex flex-1 text-wrap items-center flex-col">
+                <div class="flex flex-1 text-wrap mx-auto flex-col">
                     @for (trajet of trajets; track trajet.id) {
                         <nz-list nzNoResult nzSplit nzSize="large" [nzHeader]="trajet.arrival_date_time" nzNoResult>
                             @for (section of trajet.sections; track section.id) {
                                 <nz-list-item>
-                                    {{ section.from.name }}-------------->{{ section.to.name }}
+                                    {{ section.from.name |json }}-->{{ section.to.name | json }}
                                 </nz-list-item>
                             }
                         </nz-list>

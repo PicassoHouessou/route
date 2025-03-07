@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeModule } from './home/home.module';
+import { OpenStreetMapService } from './open-street-map.service';
 
 registerLocaleData(fr);
 
@@ -52,6 +53,9 @@ registerLocaleData(fr);
     },{
       provide:'sncfBaseUrl',
       useValue:'https://api.sncf.com/v1'
+    },{
+      provide:'OPEN_STREET_MAP_URL',
+      useValue:'https://nominatim.openstreetmap.org/search'
     },
     provideHttpClient(withInterceptors([requestInterceptor])),
     { provide: NZ_I18N, useValue: fr_FR },

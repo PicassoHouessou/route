@@ -26,7 +26,6 @@ export class ApiServiceService {
     }
 
     getTrajets(reservationInfo:ReservetionDto){
-        return this.httpClient.get<any>(`${this.sncfBaseUrl}/${ApiRoutesWithoutPrefix.JOURNEYS}?from=admin:fr:${reservationInfo.from}&to=admin:fr:${reservationInfo.to}&datetime=${reservationInfo.datetime}`);
-        // return this.httpClient.get<any>(`https://api.sncf.com/v1/coverage/sncf/journeys?from=2.3483915;48.8534951&to=2.373481;48.844945&datetime=20250302T104252`)
+        return this.httpClient.get<any>(`${this.sncfBaseUrl}/${ApiRoutesWithoutPrefix.JOURNEYS}?from=${reservationInfo.from}&to=${reservationInfo.to}&datetime=${reservationInfo.datetime}`);
     }
 }
