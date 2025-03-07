@@ -54,9 +54,11 @@
     </form>
     <nz-divider nzPlain nzText="Or" nzVariant="solid"></nz-divider>
     <form (ngSubmit)="signInGoogle()">
-      <button type="submit"  class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">
-        Sign In With Google
-      </button>
+      <nz-input-group >
+        <button type="submit" nz-button  class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors">
+          Sign In With Google
+        </button>
+      </nz-input-group>
     </form>
 
     <div class="mt-6 text-center text-sm text-gray-600">
