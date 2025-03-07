@@ -6,22 +6,32 @@
             <nz-form-item>
               <nz-form-control nzErrorTip="Please input your deaparture!">
                 <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
-                  <input formControlName="deaparture" nz-input placeholder="deaparture" />
+                  <input formControlName="deaparture" nz-input placeholder="deaparture" (input)="onInputDeaparture($event)"
+                  [nzAutocomplete]="deaparture"/>
+                  <nz-autocomplete nzBackfill #deaparture>
+                    @for (item of options_deaparture; track item.id) {
+                      <nz-auto-option [nzValue]="item.name">{{item.name}}</nz-auto-option>
+                    }
+                  </nz-autocomplete>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-control nzErrorTip="Please input your destination!">
                 <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
-                  <input formControlName="destination" nz-input placeholder="destination" />
+                  <input formControlName="destination" nz-input placeholder="destination" (input)="onInputDestination($event)"
+                  [nzAutocomplete]="destination"/>
+                  <nz-autocomplete nzBackfill #destination>
+                    @for (item of options_destination; track item.id) {
+                      <nz-auto-option [nzValue]="item.name">{{item.name}}</nz-auto-option>
+                    }
+                  </nz-autocomplete>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
             <div class="flex mb-4 sm:space-x-4">
-                <!-- <input formControlName="date" nz-input placeholder="date de départ" [type]="'date'"/> -->
                 <nz-date-picker formControlName="date" class="flex-1 rounded-s-md" ></nz-date-picker>
                 <nz-time-picker nzFormat="HH:mm:ss" formControlName="hour" class="flex-1 rounded-e-md" nzSize="large"></nz-time-picker>
-                <!-- <input formControlName="hour" class="flex-1 rounded-e-md" placeholder="heure de départ" nz-input [type]="'time'"/> -->
             </div>
             <nz-form-item>
               <nz-form-control >

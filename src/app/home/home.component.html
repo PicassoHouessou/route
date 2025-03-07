@@ -35,9 +35,11 @@
                     @for (trajet of trajets; track trajet.id) {
                         <nz-list nzNoResult nzSplit nzSize="large" [nzHeader]="trajet.arrival_date_time" nzNoResult>
                             @for (section of trajet.sections; track section.id) {
-                                <nz-list-item>
-                                    {{ section.from.name |json }}-->{{ section.to.name | json }}
-                                </nz-list-item>
+                                @if (section?.from && section?.to) {
+                                    <nz-list-item>
+                                        {{ section.from.name}}-->{{ section.to.name}}
+                                    </nz-list-item>
+                                }
                             }
                         </nz-list>
                     }

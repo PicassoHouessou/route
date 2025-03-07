@@ -9,6 +9,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 
 
@@ -17,7 +18,7 @@ import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
     ReservationComponent
   ],
   imports: [
-    CommonModule,NzFormModule,ReactiveFormsModule,NzButtonModule,NzInputModule,NzDatePickerModule,NzCardModule,NzTimePickerModule
+    CommonModule,NzFormModule,ReactiveFormsModule,NzButtonModule,NzInputModule,NzDatePickerModule,NzCardModule,NzTimePickerModule,NzAutocompleteModule
   ],
   exports:[ReservationComponent]
 })
