@@ -7,9 +7,9 @@ import { RouterModule } from '@angular/router';
 import { ReservationModule } from '../reservation/reservation.module';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { AccountBookFill, AlertFill, AlertOutline,ArrowLeftOutline } from '@ant-design/icons-angular/icons';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     HomeComponent,
   ],
   imports: [
-    CommonModule,NzButtonModule,NzIconModule.forRoot([AlertOutline,AlertFill,AccountBookFill,ArrowLeftOutline]),NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
+    CommonModule,NzButtonModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
   ],
 })
 export class HomeModule { }
