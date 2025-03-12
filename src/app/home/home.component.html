@@ -1,7 +1,7 @@
-<div class="h-full w-full flex flex-col overflow-hidden">
-<header class="h-[100px] flex justify-between items-center shadow">
-    <a class="ml-3" routerLink="/" >
-        <svg width="91" height="70" viewBox="0 0 91 70" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<nz-layout>
+    <nz-header class="flex justify-between bg-slate-300">
+      <a class="logo flex flex-col items-center justify-center" routerLink="/" >
+        <svg width="40" height="40" viewBox="0 0 75 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect y="-5" width="91" height="75" fill="url(#pattern0_6_321)"/>
             <defs>
                 <pattern id="pattern0_6_321" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -23,13 +23,13 @@
             </ul>
           </nz-dropdown-menu>
     </div>
-</header>
-<div class="flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
-    <main class="flex-1 grid grid-cols-8 grid-rows-12 mx-2 overflow-x-hidden">
-        <div class="col-span-2 col-start-4 row-span-2 mt-3">           
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <div class="mt-3 flex flex-col items-center justify-center">           
             <app-reservation (trajets)="getTraject($event)"/>
         </div>
-        <div class="row-start-5 mt-6 row-span-full col-span-8 col-start-1 overflow-y-auto">
+        <div class="sm:mx-10 mx-4 overflow-y-auto">
             @if (trajets.length>0) {
                 <div class="flex flex-1 text-wrap mx-auto flex-col">
                     @for (trajet of trajets; track trajet.id) {
@@ -47,15 +47,16 @@
                                         }
                                     }             
                                 </nz-steps>
+                                <ul nz-list-item-actions>
+                                    <nz-list-item-action><a nz-button class="rounded-full" nzType="primary" nzSize="large" (click)="choise(trajet)">choisir</a></nz-list-item-action>
+                                </ul>
                             </nz-list-item>
                         </nz-list>   
                     }
                 </div>
             }
         </div>
-    </main>
-    <!-- <footer class="h-[50px] shadow flex space-x-2 justify-center items-center">
-        <span>&copy; 2025</span> <span>Routes</span>
-    </footer> -->
-</div>
-</div>
+      </div>
+    </nz-content>
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+</nz-layout>

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
 import { commercial_modes as Commercial, JourneyItem } from '../interfaces/dtos/api';
@@ -13,6 +13,14 @@ import { parseDate } from '../../config/util.date';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit,OnDestroy {
+
+  choise($traject: JourneyItem) {
+    console.log($traject);
+  }
+
+
+  @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
+
 parseDate(arg0: string|undefined): string{
   return parseDate(arg0!).toString();
 }
