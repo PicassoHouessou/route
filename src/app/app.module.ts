@@ -54,9 +54,10 @@ registerLocaleData(fr);
     },{
       provide:'sncfBaseUrl',
       useValue:'https://api.sncf.com/v1'
-    },{
-      provide:'OPEN_STREET_MAP_URL',
-      useValue:'https://nominatim.openstreetmap.org/search'
+    },
+    {
+      provide:'API_URL',
+      useValue:'https://api.navitia.io/v1/coverage/sncf'
     },
     provideHttpClient(withInterceptors([requestInterceptor])),
     { provide: NZ_I18N, useValue: fr_FR },
