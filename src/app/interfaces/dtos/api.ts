@@ -66,3 +66,13 @@ export interface SectionItem{
     path: any[];
     links:any[];
 }
+
+
+export interface Statistic{
+    id?:string;
+    départ:string;
+    destination:string;
+    jours:Date;
+    horaire:Date;
+    nombre_fois:number
+}
