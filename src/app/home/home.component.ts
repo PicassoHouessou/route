@@ -6,6 +6,7 @@ import { Auth, User, user } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { parseDate } from '../../config/util.date';
+import { StatistiqueService } from '../statistique/statistique.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,27 @@ import { parseDate } from '../../config/util.date';
 })
 export class HomeComponent implements OnInit,OnDestroy {
 
+  currentTraject:JourneyItem |null =null;
+
   choise($traject: JourneyItem) {
-    console.log($traject);
+    this.currentTraject=$traject;
   }
 
+  isVisible = false;
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    // this.statService.addStat({})
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
 
   @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
 
@@ -27,7 +45,7 @@ parseDate(arg0: string|undefined): string{
 
 
   constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
-     private readonly router:Router){
+     private readonly router:Router,private readonly statService:StatistiqueService){
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       this.email=aUser?.email;
     });

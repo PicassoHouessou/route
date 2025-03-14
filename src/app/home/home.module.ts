@@ -13,6 +13,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
     HomeComponent,
   ],
   imports: [
-    CommonModule,NzButtonModule,NzBreadCrumbModule,NzLayoutModule,NzMenuModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
+    CommonModule,NzModalModule,NzButtonModule,NzBreadCrumbModule,NzLayoutModule,NzMenuModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
   ],
 })
 export class HomeModule { }
