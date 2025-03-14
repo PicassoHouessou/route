@@ -12,7 +12,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { fr_FR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
@@ -32,7 +32,7 @@ registerLocaleData(fr);
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HomeModule,
+    HomeModule,ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp({
       "projectId":"route-b52d9",
       "appId":"1:1077626078503:web:dc907a4199b98b198b5502",
@@ -51,14 +51,12 @@ registerLocaleData(fr);
     {
       provide: "sncfApiKey",
       useValue: "55e88c66-cf4c-49cc-a79c-566a72cbc539"
-    },
-    {
+    },{
       provide:'sncfBaseUrl',
       useValue:'https://api.sncf.com/v1'
-    },
-    {
-      provide:'API_URL',
-      useValue:'https://api.navitia.io/v1/coverage/sncf'
+    },{
+      provide:'OPEN_STREET_MAP_URL',
+      useValue:'https://nominatim.openstreetmap.org/search'
     },
     provideHttpClient(withInterceptors([requestInterceptor])),
     { provide: NZ_I18N, useValue: fr_FR },
@@ -67,4 +65,3 @@ registerLocaleData(fr);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-//https://api.navitia.io/v1/coverage/sncf/
