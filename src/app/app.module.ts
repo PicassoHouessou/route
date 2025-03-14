@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeModule } from './home/home.module';
+import { StatistiqueModule } from './statistique/statistique.module';
 
 registerLocaleData(fr);
 
@@ -43,6 +44,7 @@ registerLocaleData(fr);
     provideFirestore(() => getFirestore()),
     FormsModule,
     RouterModule,
+    StatistiqueModule
   ],
   providers: [
     provideAnimationsAsync(),
