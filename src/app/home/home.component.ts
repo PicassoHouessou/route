@@ -1,12 +1,12 @@
 import { Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
-import { commercial_modes as Commercial, JourneyItem } from '../interfaces/dtos/api';
+import { commercial_modes as Commercial, CustomType, JourneyItem } from '../interfaces/dtos/api';
 import { Auth, User, user } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { parseDate } from '../../config/util.date';
-import { StatistiqueService } from '../statistique/statistique.service';
+import { HistoricService } from '../statistique/statistique.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +14,17 @@ import { StatistiqueService } from '../statistique/statistique.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit,OnDestroy {
+  
+  infos:{ departure?: string; destination?: string; date?: string; hour?: string; }={};
+  
+  getInfos($event: { departure: string; destination: string; date: string; hour: string; }) {
+      this.infos=$event;
+  }
 
   currentTraject:JourneyItem |null =null;
 
-  choise($traject: JourneyItem) {
+  choise($event:MouseEvent,$traject: JourneyItem) {
+    $event.stopPropagation();
     this.currentTraject=$traject;
   }
 
@@ -28,7 +35,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   handleOk(): void {
-    // this.statService.addStat({})
+    this.hisService.addStat({destination:this.infos.destination,depart:this.infos.departure,horaire:this.infos.hour,jour:this.infos.date})
     this.isVisible = false;
   }
 
@@ -37,7 +44,7 @@ export class HomeComponent implements OnInit,OnDestroy {
     this.isVisible = false;
   }
 
-  @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
+@ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
 
 parseDate(arg0: string|undefined): string{
   return parseDate(arg0!).toString();
@@ -45,7 +52,7 @@ parseDate(arg0: string|undefined): string{
 
 
   constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
-     private readonly router:Router,private readonly statService:StatistiqueService){
+     private readonly router:Router,private readonly hisService:HistoricService){
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       this.email=aUser?.email;
     });
@@ -59,7 +66,8 @@ parseDate(arg0: string|undefined): string{
   userSubscription: Subscription;
 
   email:string | null | undefined='inconnu';
-  trajets:JourneyItem[]=[];
+
+  trajets2:CustomType[]=[];
 
   regions:Commercial[]=[];
   ngOnInit() {
@@ -72,6 +80,10 @@ parseDate(arg0: string|undefined): string{
     }
   }
 
+  get getUrl():string{
+    return this.router.url;
+  }
+
   async logOut(){
     try{
       await this.authService.logOut();
@@ -81,7 +93,12 @@ parseDate(arg0: string|undefined): string{
     }
   }
 
+  getHeader($index:number){
+    return `Itinéraire ${$index+1}`;
+  }
+
   getTraject($event: any[]) {
-    this.trajets=$event;
+    this.trajets2=$event.map(t=>({item:t,visible:false}));
+    this.trajets2[0].visible=true;
   }
 }

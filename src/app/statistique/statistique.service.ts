@@ -1,22 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
-import { collection, Firestore,addDoc,updateDoc } from '@angular/fire/firestore';
-import { Statistic } from '../interfaces/dtos/api';
+import { Auth, user } from '@angular/fire/auth';
+import { collection, Firestore,addDoc, doc, collectionData, deleteDoc, setDoc, query, where, getDocs } from '@angular/fire/firestore';
+import { Historic } from '../interfaces/dtos/api';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StatistiqueService {
+export class HistoricService {
 
-  constructor(private readonly firestore:Firestore,private readonly auth:Auth) { }
+  $user:any=null;
 
-  addStat(stat:Statistic){
-    let $stat=collection(this.firestore,'statistique');
-    return addDoc($stat,{depart:stat.départ,destination:stat.destination,horaire:stat.horaire,jour:stat.jours,nombre_fois:1});
+  constructor(private readonly firestore:Firestore,private readonly auth:Auth) { 
+    user(auth).subscribe(value=>{
+      if (value && value.email) {
+        this.$user=value.email;
+      }
+    });
   }
 
-  // updateStat(stat:Statistic){
-  //   let $stat=collection(this.firestore,'statistique');
-  //   return updateDoc(stat,{...stat,nombre_fois:stat.nombre_fois+1})
-  // }
+  addStat(stat:Historic){
+    let $stat=collection(this.firestore,'historique');
+    return addDoc($stat,{depart:stat.depart,destination:stat.destination,horaire:stat.horaire,jour:stat.jour,owner:this.$user});
+  }
+
+  getAllHistoric(){
+    const q = query(collection(this.firestore, "historique"));
+    return getDocs(q);
+  }
+
+  deleteHistoric(hist:Historic){
+    return deleteDoc(doc(this.firestore,'historique',hist.jour as string));
+  }
 }

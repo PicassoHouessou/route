@@ -14,13 +14,20 @@ const redirectUnauthorizedToLanding = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   {
     path:'',
-    pathMatch:'full',
     component:HomeComponent,
     canActivate:[AuthGuard],
     data:{
       authGuardPipe: redirectUnauthorizedToLanding
     },
-    title:'Page d\'accueil'
+    title:'Page d\'accueil',
+    children:[
+      {
+        path:'profil',
+        component:ProfileComponent,
+        pathMatch:'full',
+        title:'Profile'
+      },
+    ]
   },
   {
     path:'login',
@@ -37,12 +44,6 @@ const routes: Routes = [
     component:RegisterComponent,
     pathMatch:'full',
     title:'S\'inscrire'
-  },
-  {
-    path:'profil',
-    component:ProfileComponent,
-    pathMatch:'full',
-    title:'Profile'
   },
   {
     path:'confirm-email',
