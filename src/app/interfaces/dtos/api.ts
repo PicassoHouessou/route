@@ -65,6 +65,7 @@ export interface SectionItem{
     arrival_date_time: string;
     departure_date_time: string;
     duration: 930,
+    display_informations?:any;
     type: string,
     mode: string;
     geojson: any;
