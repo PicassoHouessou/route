@@ -1,46 +1,49 @@
+<div class="w-full h-full">
+  <div class="flex flex-col rounded-md shadow p-4">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <div class="flex flex-row">
+        <nz-form-item class="w-full">
+          <nz-form-control nzErrorTip="Please input your departure!">
+            <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
+              <input formControlName="departure" nz-input placeholder="departure" (input)="onInputDeparture($event)"
+                     [nzAutocomplete]="departure" />
+              <nz-autocomplete nzBackfill #departure>
+                @for (item of options_departure; track item.id) {
+                  <nz-auto-option [nzValue]="item.name">{{ item.name }}</nz-auto-option>
+                }
+              </nz-autocomplete>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="w-full">
+          <nz-form-control nzErrorTip="Please input your destination!">
+            <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
+              <input formControlName="destination" nz-input placeholder="destination"
+                     (input)="onInputDestination($event)"
+                     [nzAutocomplete]="destination" />
+              <nz-autocomplete nzBackfill #destination>
+                @for (item of options_destination; track item.id) {
+                  <nz-auto-option [nzValue]="item.name">{{ item.name }}</nz-auto-option>
+                }
+              </nz-autocomplete>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="flex mb-4 sm:space-x-4 w-full">
+        <nz-date-picker class="w-full" nzSize="large"
+                        formControlName="startDate"
+                        nzShowTime
+        ></nz-date-picker>
+      </div>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button [nzLoading]="loading" nzSize="large"
+                  class="w-full rounded-md text-white bg-blue-500 hover:bg-blue-700">Demander un trajet
+          </button>
+        </nz-form-control>
+      </nz-form-item>
 
-
-  <div class=" w-full h-full">
-    <div class="flex flex-col rounded-md shadow p-4">
-        <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your departure!">
-                <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
-                  <input formControlName="departure" nz-input placeholder="departure" (input)="onInputDeparture($event)"
-                  [nzAutocomplete]="departure"/>
-                  <nz-autocomplete nzBackfill #departure>
-                    @for (item of options_departure; track item.id) {
-                      <nz-auto-option [nzValue]="item.name">{{item.name}}</nz-auto-option>
-                    }
-                  </nz-autocomplete>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Please input your destination!">
-                <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
-                  <input formControlName="destination" nz-input placeholder="destination" (input)="onInputDestination($event)"
-                  [nzAutocomplete]="destination"/>
-                  <nz-autocomplete nzBackfill #destination>
-                    @for (item of options_destination; track item.id) {
-                      <nz-auto-option [nzValue]="item.name">{{item.name}}</nz-auto-option>
-                    }
-                  </nz-autocomplete>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <div class="flex mb-4 sm:space-x-4">
-              <nz-date-picker
-                formControlName="startDate"
-                nzShowTime
-              ></nz-date-picker>
-            </div>
-            <nz-form-item>
-              <nz-form-control >
-                <button nz-button [nzLoading]="loading" nzSize="large" class="w-full rounded-md text-white bg-blue-500 hover:bg-blue-700">Demander un trajet</button>
-              </nz-form-control>
-            </nz-form-item>
-
-          </form>
-    </div>
+    </form>
   </div>
+</div>

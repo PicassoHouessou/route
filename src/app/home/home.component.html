@@ -1,10 +1,13 @@
 <div class="h-full">
     <app-header />
+
         <div class="flex-grow">
             <router-outlet>
-              <div [class.cacher]="getUrl.includes('profil')" class="my-3 flex flex-col items-center justify-center">
-                <app-reservation (trajets)="getTraject($event)" (infos)="getInfos($event)"/>
+              <div [class.cacher]="getUrl.includes('profil')" class="" nz-row>
+                <div nz-col nzSpan="12" nzOffset="6">
+                  <app-reservation (trajets)="getTraject($event)" (infos)="getInfos($event)"/></div>
             </div>
+
             <div class="sm:mx-10 mx-4 overflow-y-auto">
                 <nz-collapse [class.cacher]="getUrl.includes('profil')">
                   @for (trajet of trajets2; track trajet.item.id) {
