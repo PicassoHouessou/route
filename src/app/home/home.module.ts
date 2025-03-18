@@ -19,6 +19,7 @@ import {  NzTagModule } from 'ng-zorro-antd/tag';
 import { IconsProviderModule } from '../icons-provider.module';
 import {  MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../header/header.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 
  @NgModule({
@@ -42,7 +43,7 @@ import { HeaderComponent } from '../header/header.component';
        NzListModule,
        NzTypographyModule,
        NzTagModule,
-       MatIconModule,
+       MatIconModule,NzGridModule
     ],
  })
  export class HomeModule {}
