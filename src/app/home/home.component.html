@@ -61,10 +61,10 @@
                         @for (section of trajet.item.sections; track section.id) {
                             @if (section?.from && section?.to) {
                                 @if ($index<trajet.item.sections!.length-2) {
-                                  <nz-step [nzTitle]="section.to.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)"></nz-step>
+                                  <nz-step [nzTitle]="section.to.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)" [nzIcon]="customIcon"></nz-step>
                                 }
                                 @else{
-                                  <nz-step [nzTitle]="section.from.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)"></nz-step>
+                                  <nz-step [nzTitle]="section.from.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)" [nzIcon]="customIcon"></nz-step>
                                 }
                             }
                         }
@@ -97,3 +97,13 @@
           </nz-modal>
 
       </div>
+
+<!--<ng-template #customIcon>-->
+<!--  <nz-tag class="custom-icon" nzColor="blue">blue</nz-tag>-->
+<!--</ng-template>-->
+
+<ng-template #customIcon><i
+  class="trigger"
+  nz-icon
+  nzType="smile"
+></i></ng-template>

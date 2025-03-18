@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { formatDate, parseDate } from '../../config/util.date';
 import { HistoricService } from '../statistique/statistique.service';
 import { DATE_FORMAT } from '@/config/constant';
-
+import { presetColors } from 'ng-zorro-antd/core/color';
 interface InfoType {
   departure?: string; destination?: string;
   startDate?: string;
@@ -20,7 +20,7 @@ interface InfoType {
 })
 export class HomeComponent implements OnInit, OnDestroy {
    infos: InfoType = {};
-
+  readonly presetColors = presetColors;
    getInfos($event: InfoType) {
       this.infos = $event;
    }
