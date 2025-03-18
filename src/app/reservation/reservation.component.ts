@@ -1,10 +1,10 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Timestamp } from '@angular/fire/firestore';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ApiServiceService } from '../api-service.service';
 import { AutoCompleteItem } from '../interfaces/dtos/api';
 import { catchError, EMPTY } from 'rxjs';
 import { parseDate } from '@/config/util.date';
+import dayjs from '@/config/dayjs';
 
 @Component({
   selector: 'app-reservation',
@@ -26,8 +26,7 @@ export class ReservationComponent implements OnInit{
   validateForm = this.fb.group({
     deaparture: this.fb.control('Paris', [Validators.required]),
     destination: this.fb.control('Calais', [Validators.required]),
-    startDate:this.fb.control(Timestamp.now().toDate()),
-    //hour:this.fb.control(Timestamp.now().toDate()),
+    startDate:this.fb.control(dayjs().toDate()),
   });
 
   alternatives=[];

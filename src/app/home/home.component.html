@@ -53,7 +53,7 @@
                 <nz-collapse [class.cacher]="getUrl.includes('profil')">
                   @for (trajet of trajets2; track trajet.item.id) {
                     <nz-collapse-panel
-                      [nzHeader]="getHeader($index)"
+                      [nzHeader]="getHeader(trajet)"
                       [nzActive]="trajet.visible"
                       [nzExtra]="button"
                     >

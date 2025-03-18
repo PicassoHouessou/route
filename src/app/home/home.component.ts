@@ -10,7 +10,8 @@ import { HistoricService } from '../statistique/statistique.service';
 import { DATE_FORMAT } from '@/config/constant';
 
 interface InfoType {
-  departure?: string; destination?: string; startDate?: string;
+  departure?: string; destination?: string;
+  startDate?: string;
 }
 @Component({
   selector: 'app-home',
@@ -98,7 +99,8 @@ parseDate(arg0: string|undefined){
     }
   }
 
-  getHeader($index:number){
+  getHeader(traject:any){
+    return
     return `Itinéraire ${$index+1}`;
   }
 
