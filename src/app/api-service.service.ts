@@ -8,7 +8,7 @@ import { commercial_modes, ReservetionDto } from './interfaces/dtos/api';
     providedIn: 'root',
 })
 export class ApiServiceService {
-     constructor(@Inject('sncfBaseUrl') private sncfBaseUrl: string,@Inject('API_URL') private sncfBaseUrl2: string, private httpClient: HttpClient) {
+     constructor(@Inject('sncfBaseUrl') private sncfBaseUrl: string,@Inject('API_URL') private sncfApiUrl: string, private httpClient: HttpClient) {
     }
 
     getLines() {
@@ -19,17 +19,17 @@ export class ApiServiceService {
     }
 
     getCommercialModes() {
-       return this.httpClient.get<commercial_modes[]>(`${this.sncfBaseUrl2}/${ApiRoutesWithoutPrefix.COMMERCIAL_MODES}`).pipe(
+       return this.httpClient.get<commercial_modes[]>(`${this.sncfApiUrl}/${ApiRoutesWithoutPrefix.COMMERCIAL_MODES}`).pipe(
            map((values) => values),
            catchError((error) => of(error))
        );
     }
 
     getTrajets(reservationInfo:ReservetionDto){
-        return this.httpClient.get<any>(`${this.sncfBaseUrl2}/${ApiRoutesWithoutPrefix.JOURNEYS}?from=${reservationInfo.from}&to=${reservationInfo.to}&datetime=${reservationInfo.datetime}`);
+        return this.httpClient.get<any>(`${this.sncfApiUrl}/${ApiRoutesWithoutPrefix.JOURNEYS}?from=${reservationInfo.from}&to=${reservationInfo.to}&datetime=${reservationInfo.datetime}`);
     }
 
     getCoordonnee(adresse:string){
-        return this.httpClient.get<any>(`${this.sncfBaseUrl2}/pt_objects?q=${adresse}`);
+        return this.httpClient.get<any>(`${this.sncfApiUrl}/pt_objects?q=${adresse}`);
     }
 }

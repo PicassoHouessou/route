@@ -10,7 +10,7 @@ export class HistoricService {
 
   $user:any=null;
 
-  constructor(private readonly firestore:Firestore,private readonly auth:Auth) { 
+  constructor(private readonly firestore:Firestore,private readonly auth:Auth) {
     user(auth).subscribe(value=>{
       if (value && value.email) {
         this.$user=value.email;
@@ -20,7 +20,7 @@ export class HistoricService {
 
   addStat(stat:Historic){
     let $stat=collection(this.firestore,'historique');
-    return addDoc($stat,{depart:stat.depart,destination:stat.destination,horaire:stat.horaire,jour:stat.jour,owner:this.$user});
+    return addDoc($stat,{depart:stat.depart,destination:stat.destination,startDate:stat.startDate,owner:this.$user});
   }
 
   getAllHistoric(){
@@ -29,6 +29,6 @@ export class HistoricService {
   }
 
   deleteHistoric(hist:Historic){
-    return deleteDoc(doc(this.firestore,'historique',hist.jour as string));
+    return deleteDoc(doc(this.firestore,'historique',hist.startDate as string));
   }
 }

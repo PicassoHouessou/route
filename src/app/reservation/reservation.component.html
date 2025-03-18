@@ -30,15 +30,19 @@
               </nz-form-control>
             </nz-form-item>
             <div class="flex mb-4 sm:space-x-4">
-                <nz-date-picker formControlName="date" class="flex-1 rounded-s-md" ></nz-date-picker>
-                <nz-time-picker nzFormat="HH:mm:ss" formControlName="hour" class="flex-1 rounded-e-md" nzSize="large"></nz-time-picker>
+<!--                <nz-date-picker formControlName="date" class="flex-1 rounded-s-md" ></nz-date-picker>-->
+              <nz-date-picker
+                formControlName="startDate"
+                nzShowTime
+              ></nz-date-picker>
+<!--                <nz-time-picker nzFormat="HH:mm:ss" formControlName="hour" class="flex-1 rounded-e-md" nzSize="large"></nz-time-picker>-->
             </div>
             <nz-form-item>
               <nz-form-control >
                 <button nz-button [nzLoading]="loading" nzSize="large" class="w-full rounded-md text-white bg-blue-500 hover:bg-blue-700">Demander un trajet</button>
               </nz-form-control>
             </nz-form-item>
-        
+
           </form>
     </div>
   </div>

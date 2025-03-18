@@ -4,7 +4,7 @@ import { updateProfile } from 'firebase/auth';
 import { Auth, updateEmail, user, User } from '@angular/fire/auth';
 import { HistoricService } from '../statistique/statistique.service';
 import { Historic } from '../interfaces/dtos/api';
-import { parseDate } from '@/config/util.date';
+import { formatDate, formatTime } from '@/config/util.date';
 
 @Component({
    selector: 'app-profile',
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
    private $user:User| null=null;
    constructor(private formBuilder: FormBuilder) {
       const user = this.auth.currentUser;
-      this.$user=this.auth.currentUser;
+      console.log(user);
       this.profileForm = formBuilder.group({
          email: [
             user?.email ?? '',
@@ -42,16 +42,12 @@ export class ProfileComponent implements OnInit {
       try {
          const res=await this.historicService.getAllHistoric();
          if (!res.empty) {
-            
+
             res.forEach(doc=>this.historiques.push(doc.data() as Historic));
          }
       } catch (error) {
          console.log(error);
       }
-   }
-
-   parseDate(arg0: string|undefined): string{
-     return parseDate(arg0!).toString();
    }
 
    async handleSubmit() {
@@ -82,4 +78,7 @@ export class ProfileComponent implements OnInit {
    deleteHistoric(hist:Historic){
       this.historicService.deleteHistoric(hist).then(value=>console.log(value)).catch(error=>console.log("echec de la suppression"));
    }
+
+  protected readonly formatDate = formatDate;
+  protected readonly formatTime = formatTime;
 }

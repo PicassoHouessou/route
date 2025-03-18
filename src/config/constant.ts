@@ -53,7 +53,7 @@ export enum AdminPages {
 type BaseApiFilters = 'search' | 'page';
 
 export enum DATE_FORMAT {
-    LT = 'LT',
+    TIME = 'LT',
     LTS = 'LTS',
     DATE = 'LL',
     DATETIME = 'LLLL',

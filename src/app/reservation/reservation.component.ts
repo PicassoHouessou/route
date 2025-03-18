@@ -1,9 +1,10 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Timestamp } from '@angular/fire/firestore';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ApiServiceService } from '../api-service.service';
 import { AutoCompleteItem } from '../interfaces/dtos/api';
 import { catchError, EMPTY } from 'rxjs';
+import { parseDate } from '@/config/util.date';
+import dayjs from '@/config/dayjs';
 
 @Component({
   selector: 'app-reservation',
@@ -25,14 +26,13 @@ export class ReservationComponent implements OnInit{
   validateForm = this.fb.group({
     deaparture: this.fb.control('Paris', [Validators.required]),
     destination: this.fb.control('Calais', [Validators.required]),
-    date:this.fb.control(Timestamp.now().toDate()),
-    hour:this.fb.control(Timestamp.now().toDate()),
+    startDate:this.fb.control(dayjs().toDate()),
   });
 
   alternatives=[];
   @Output() trajets:EventEmitter<any[]>=new EventEmitter();
 
-  @Output() infos:EventEmitter<{departure:string;destination:string;date:string;hour:string}>=new EventEmitter();
+  @Output() infos:EventEmitter<{departure:string;destination:string;startDate:string}>=new EventEmitter();
 
   loading=false;
   options_deaparture: AutoCompleteItem[] = [];
@@ -68,13 +68,20 @@ export class ReservationComponent implements OnInit{
   submitForm() : void{
     if (this.validateForm.valid) {
       this.loading=true;
-      const tmp_date=new Date(this.validateForm.get<string>('date')?.value as string);
+      const tmp_date= parseDate(this.validateForm.get<string>('startDate')?.value);
+      /*
+       //const tmp_date=new Date(this.validateForm.get<string>('date')?.value as string);
       const tmp_date2=(new Date(this.validateForm.get<string>('hour')?.value as string));
       tmp_date.setHours(tmp_date2.getHours());
       tmp_date.setMinutes(tmp_date2.getMinutes());
       tmp_date.setSeconds(tmp_date2.getSeconds());
       tmp_date.setMilliseconds(tmp_date2.getMilliseconds());
       const datetime=tmp_date.toLocaleString().split(' ')[0].split('/').reverse().join('')+'T'+tmp_date.toLocaleString().split(' ')[1].split(':').join('');
+
+       */
+      console.log("this.validateForm.get<string>('hour')?.value as string",this.validateForm.get<string>('hour')?.value as string);
+      //tmp_date.set('hour', 5).set('minute', 55).set('second', 15)
+      const datetime=tmp_date.format('YYYYMMDDTHHMM');
       const deaparture=this.getString(this.options_deaparture.find(v=>v.name?.includes(this.validateForm.get<string>('deaparture')?.value as string))?.stop_area?.coord);
       const destination=this.getString(this.options_destination.find(v=>v.name?.includes(this.validateForm.get<string>('destination')?.value as string))?.stop_area?.coord);
       if (deaparture && destination) {
@@ -91,8 +98,8 @@ export class ReservationComponent implements OnInit{
             this.trajets.emit(value.journeys??[]);
             this.infos.emit({departure:this.validateForm.get('deaparture')?.value as string,
               destination:this.validateForm.get('destination')?.value as string,
-              date:tmp_date.toString(),
-              hour:tmp_date.toString()});
+              startDate:tmp_date.toString()
+            });
             this.loading=false;
           })
       }
