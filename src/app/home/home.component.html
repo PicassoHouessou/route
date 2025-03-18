@@ -1,49 +1,5 @@
 <div class="h-full">
-    <header class="bg-white shadow">
-      <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
-        <div class="relative flex h-16 justify-between">
-          <div class="relative z-10 flex px-2 lg:px-0">
-            <div class="flex flex-shrink-0 items-center">
-              <a routerLink="/"><img class="block h-8 w-auto" src="../../assets/logo.png" alt="Your Company"></a>
-            </div>
-          </div>
-          <div class="relative z-10 flex items-center lg:hidden">
-            <!-- Mobile menu button -->
-            <button type="button" nz-dropdown [nzDropdownMenu]="menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
-              <span class="sr-only">Open menu</span>
-              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-              <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-            <button type="button" class="flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
-              <span class="sr-only">View notifications</span>
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-              </svg>
-            </button>
-            <div class="relative ml-4 flex-shrink-0">
-              <div>
-                <a nz-dropdown [nzDropdownMenu]="menu">
-                    <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-                    {{email}}
-                  </a>
-                  <nz-dropdown-menu #menu="nzDropdownMenu">
-                    <ul nz-menu>
-                      <a routerLink="/profil" nz-menu-item>Profil</a>
-                      <li nz-menu-item (click)="logOut()">Déconnection</li>
-                    </ul>
-                  </nz-dropdown-menu>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    </header>
+    <app-header />
         <div class="flex-grow">
             <router-outlet>
               <div [class.cacher]="getUrl.includes('profil')" class="my-3 flex flex-col items-center justify-center">
