@@ -90,8 +90,8 @@
                             {{hist.depart}}
                           </td>
                           <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{hist.destination}}</td>
-                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{parseDate(hist.jour) | date:'dd MMM yyyy'}} </td>
-                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{parseDate(hist.horaire) | date:'hh:mm a'}}</td>
+                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{formatDate(hist.startDate,undefined,false)}} </td>
+                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{formatTime(hist.startDate) }}</td>
                           <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500"><button class="rounded-full" nz-button nzDanger (click)="deleteHistoric(hist)" >supprimer</button></td>
                         </tr>
                       }

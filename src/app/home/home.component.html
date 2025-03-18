@@ -46,7 +46,7 @@
     </header>
         <div class="flex-grow">
             <router-outlet>
-              <div [class.cacher]="getUrl.includes('profil')" class="my-3 flex flex-col items-center justify-center">           
+              <div [class.cacher]="getUrl.includes('profil')" class="my-3 flex flex-col items-center justify-center">
                 <app-reservation (trajets)="getTraject($event)" (infos)="getInfos($event)"/>
             </div>
             <div class="sm:mx-10 mx-4 overflow-y-auto">
@@ -67,7 +67,7 @@
                                     <nz-step [nzTitle]="section.to.name" [nzDescription]="section.to.name"></nz-step>
                                 }
                             }
-                        }             
+                        }
                     </nz-steps>
                     <ng-template #button>
                       <button nz-button class="rounded-full" nzType="primary" (click)="choise($event,trajet.item);showModal()">choisir</button>
@@ -79,7 +79,7 @@
             </div>
             </router-outlet>
           </div>
-        <nz-modal [(nzVisible)]="isVisible" [nzTitle]="parseDate(currentTraject?.arrival_date_time)" nzCancelText="Annuler" nzOkText="Valider" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <nz-modal [(nzVisible)]="isVisible" [nzTitle]="parseDate(currentTraject?.arrival_date_time).toString()" nzCancelText="Annuler" nzOkText="Valider" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
             <ng-container *nzModalContent>
                 <nz-steps [nzCurrent]="1" nzProgressDot nzDirection="vertical">
                     @for (section of currentTraject?.sections; track section.id) {
@@ -91,7 +91,7 @@
                                 <nz-step [nzTitle]="section.to.name" [nzDescription]="section.to.name"></nz-step>
                             }
                         }
-                    }             
+                    }
                 </nz-steps>
             </ng-container>
           </nz-modal>

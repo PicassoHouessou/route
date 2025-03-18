@@ -4,7 +4,7 @@ import { updateProfile } from 'firebase/auth';
 import { Auth, updateEmail, user, User } from '@angular/fire/auth';
 import { HistoricService } from '../statistique/statistique.service';
 import { Historic } from '../interfaces/dtos/api';
-import { parseDate } from '@/config/util.date';
+import { formatDate, formatTime } from '@/config/util.date';
 
 @Component({
    selector: 'app-profile',
@@ -50,10 +50,6 @@ export class ProfileComponent implements OnInit {
       }
    }
 
-   parseDate(arg0: string|undefined): string{
-     return parseDate(arg0!).toString();
-   }
-
    async handleSubmit() {
       this.profileForm.markAllAsTouched();
 
@@ -82,4 +78,7 @@ export class ProfileComponent implements OnInit {
    deleteHistoric(hist:Historic){
       this.historicService.deleteHistoric(hist).then(value=>console.log(value)).catch(error=>console.log("echec de la suppression"));
    }
+
+  protected readonly formatDate = formatDate;
+  protected readonly formatTime = formatTime;
 }

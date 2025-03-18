@@ -77,6 +77,5 @@ export interface Historic{
     id?:string;
     depart:string | undefined;
     destination:string | undefined;
-    jour:string | undefined;
-    horaire:string | undefined;
+    startDate:string | undefined;
 }

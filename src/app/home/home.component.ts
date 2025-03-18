@@ -5,19 +5,24 @@ import { commercial_modes as Commercial, CustomType, JourneyItem } from '../inte
 import { Auth, User, user } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { parseDate } from '../../config/util.date';
+import { formatDate, parseDate } from '../../config/util.date';
 import { HistoricService } from '../statistique/statistique.service';
+import { DATE_FORMAT } from '@/config/constant';
 
+interface InfoType {
+  departure?: string; destination?: string; startDate?: string;
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit,OnDestroy {
-  
-  infos:{ departure?: string; destination?: string; date?: string; hour?: string; }={};
-  
-  getInfos($event: { departure: string; destination: string; date: string; hour: string; }) {
+
+  infos:InfoType={};
+
+  getInfos($event: InfoType) {
+    console.log($event)
       this.infos=$event;
   }
 
@@ -35,7 +40,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   }
 
   handleOk(): void {
-    this.hisService.addStat({destination:this.infos.destination,depart:this.infos.departure,horaire:this.infos.hour,jour:this.infos.date})
+    this.hisService.addStat({destination:this.infos.destination,depart:this.infos.departure,startDate: this.infos.startDate})
     this.isVisible = false;
   }
 
@@ -46,8 +51,8 @@ export class HomeComponent implements OnInit,OnDestroy {
 
 @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
 
-parseDate(arg0: string|undefined): string{
-  return parseDate(arg0!).toString();
+parseDate(arg0: string|undefined){
+  return parseDate(arg0!);
 }
 
 
@@ -101,4 +106,7 @@ parseDate(arg0: string|undefined): string{
     this.trajets2=$event.map(t=>({item:t,visible:false}));
     this.trajets2[0].visible=true;
   }
+
+  protected readonly DATE_FORMAT = DATE_FORMAT;
+  protected readonly formatDate = formatDate;
 }

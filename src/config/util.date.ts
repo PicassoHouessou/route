@@ -3,7 +3,7 @@ import { ConfigType } from 'dayjs';
 export const defaultLocale = 'fr';
 
 export enum DATE_FORMAT {
-    LT = 'LT',
+    TIME = 'LT',
     LTS = 'LTS',
     DATE = 'LL',
     DATETIME = 'LLLL',
@@ -28,18 +28,30 @@ export const formatDate = (
     if (!date || !dayjs(date).isValid()) {
        return '-';
     }
- 
+
     const formatedDate = dayjs(date)
        .locale(locale)
        .format(withHour ? DATE_FORMAT.DATETIME : DATE_FORMAT.DATE);
     return locale == defaultLocale ? capitalizeFirstLetter(formatedDate) : formatedDate;
  };
- 
+
+export const formatTime = (
+  date: ConfigType,
+  locale= defaultLocale,
+) => {
+  if (!date || !dayjs(date).isValid()) {
+    return '-';
+  }
+
+  return  dayjs(date)
+    .locale(locale)
+    .format( DATE_FORMAT.TIME);
+};
+
  export const parseDate = (date: string, locale=defaultLocale) => {
     let parsedDate = dayjs(date);
     parsedDate = parsedDate.locale(locale);
- 
-    return parsedDate.isValid() ? parsedDate : dayjs(date);
+
+    return parsedDate.isValid() ? parsedDate :dayjs(date);
  };
- 
- 
+
