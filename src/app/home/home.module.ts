@@ -15,12 +15,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-import { NzTagComponent, NzTagModule } from 'ng-zorro-antd/tag';
+import {  NzTagModule } from 'ng-zorro-antd/tag';
 import { IconsProviderModule } from '../icons-provider.module';
 import {  MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from '../header/header.component';
+
 
  @NgModule({
-    declarations: [HomeComponent],
+    declarations: [HomeComponent,HeaderComponent],
     imports: [
        IconsProviderModule,
        CommonModule,
