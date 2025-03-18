@@ -17,29 +17,30 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzTagComponent, NzTagModule } from 'ng-zorro-antd/tag';
 import { IconsProviderModule } from '../icons-provider.module';
+import {  MatIconModule } from '@angular/material/icon';
 
-
-@NgModule({
-   declarations: [HomeComponent],
-   imports: [
-     IconsProviderModule,
-      CommonModule,
-      NzModalModule,
-      NzCollapseModule,
-      NzButtonModule,
-      RouterOutlet,
-      NzBreadCrumbModule,
-      NzLayoutModule,
-      NzMenuModule,
-      NzIconModule,
-      NzStepsModule,
-      NzDropDownModule,
-      NzAvatarModule,
-      RouterModule,
-      ReservationModule,
-      NzListModule,
-      NzTypographyModule,
-      NzTagModule,
-   ],
-})
-export class HomeModule {}
+ @NgModule({
+    declarations: [HomeComponent],
+    imports: [
+       IconsProviderModule,
+       CommonModule,
+       NzModalModule,
+       NzCollapseModule,
+       NzButtonModule,
+       RouterOutlet,
+       NzBreadCrumbModule,
+       NzLayoutModule,
+       NzMenuModule,
+       NzIconModule,
+       NzStepsModule,
+       NzDropDownModule,
+       NzAvatarModule,
+       RouterModule,
+       ReservationModule,
+       NzListModule,
+       NzTypographyModule,
+       NzTagModule,
+       MatIconModule,
+    ],
+ })
+ export class HomeModule {}
