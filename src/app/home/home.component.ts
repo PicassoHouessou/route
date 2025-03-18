@@ -14,101 +14,122 @@ interface InfoType {
   startDate?: string;
 }
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+   selector: 'app-home',
+   templateUrl: './home.component.html',
+   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit,OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
+   infos: InfoType = {};
 
-  infos:InfoType={};
+   getInfos($event: InfoType) {
+      console.log($event);
+      this.infos = $event;
+   }
 
-  getInfos($event: InfoType) {
-    console.log($event)
-      this.infos=$event;
-  }
+   currentTraject: JourneyItem | null = null;
 
-  currentTraject:JourneyItem |null =null;
+   choise($event: MouseEvent, $traject: JourneyItem) {
+      $event.stopPropagation();
+      this.currentTraject = $traject;
+   }
 
-  choise($event:MouseEvent,$traject: JourneyItem) {
-    $event.stopPropagation();
-    this.currentTraject=$traject;
-  }
+   isVisible = false;
 
-  isVisible = false;
+   showModal(): void {
+      this.isVisible = true;
+   }
 
-  showModal(): void {
-    this.isVisible = true;
-  }
-
-  handleOk(): void {
-    this.hisService.addStat({destination:this.infos.destination,depart:this.infos.departure,startDate: this.infos.startDate})
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
-  }
-
-@ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
-
-parseDate(arg0: string|undefined){
-  return parseDate(arg0!);
-}
-
-
-  constructor(private readonly authService:AuthService,private readonly apiService : ApiServiceService,
-     private readonly router:Router,private readonly hisService:HistoricService){
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      this.email=aUser?.email;
-    });
-  }
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-  }
-
-  private auth: Auth = inject(Auth);
-  user$ = user(this.auth);
-  userSubscription: Subscription;
-
-  email:string | null | undefined='inconnu';
-
-  trajets2:CustomType[]=[];
-
-  regions:Commercial[]=[];
-  ngOnInit() {
-    try {
-      this.apiService.getCommercialModes().subscribe((data)=>{
-        this.regions=data.commercial_modes;
+   handleOk(): void {
+      this.hisService.addStat({
+         destination: this.infos.destination,
+         depart: this.infos.departure,
+         startDate: this.infos.startDate,
       });
-    } catch (error) {
-      console.error(error);
-    }
+      this.isVisible = false;
+   }
+
+   handleCancel(): void {
+      console.log('Button cancel clicked!');
+      this.isVisible = false;
+   }
+
+   @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
+
+   parseDate(arg0: string | undefined) {
+      return parseDate(arg0!);
+   }
+
+   constructor(
+      private readonly authService: AuthService,
+      private readonly apiService: ApiServiceService,
+      private readonly router: Router,
+      private readonly hisService: HistoricService,
+   ) {
+      this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+         this.email = aUser?.email;
+      });
+   }
+   ngOnDestroy(): void {
+      this.userSubscription.unsubscribe();
+   }
+
+   private auth: Auth = inject(Auth);
+   user$ = user(this.auth);
+   userSubscription: Subscription;
+
+   email: string | null | undefined = 'inconnu';
+
+   trajets2: CustomType[] = [];
+
+   regions: Commercial[] = [];
+   ngOnInit() {
+      try {
+         this.apiService.getCommercialModes().subscribe((data) => {
+            this.regions = data.commercial_modes;
+         });
+      } catch (error) {
+         console.error(error);
+      }
+   }
+
+   get getUrl(): string {
+      return this.router.url;
+   }
+
+   async logOut() {
+      try {
+         await this.authService.logOut();
+         this.router.navigateByUrl('/login');
+      } catch (error) {
+         console.log(error);
+      }
+   }
+
+   formatDuration(seconds:number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+
+    return [hours, minutes]
+      .map(unit => String(unit).padStart(2, '0'))
+      .join('h');
   }
 
-  get getUrl():string{
-    return this.router.url;
-  }
+  getHeader({ item:traject }: any) {
+      if (!traject) {
+         return '';
+      }
+      let title = this.formatDuration(traject?.duration);
+      if (traject?.nb_transfers > 0) {
+        title = title+` ${traject?.nb_transfers} correspondances`;
+      }
+      return `${title}`;
+   }
 
-  async logOut(){
-    try{
-      await this.authService.logOut();
-      this.router.navigateByUrl('/login');
-    }catch(error){
-      console.log(error);
-    }
-  }
+   getTraject($event: any[]) {
+      this.trajets2 = $event.map((t) => ({ item: t, visible: false }));
+      this.trajets2[0].visible = true;
+   }
 
-  getHeader(traject:any){
-    return
-    return `Itinéraire ${$index+1}`;
-  }
-
-  getTraject($event: any[]) {
-    this.trajets2=$event.map(t=>({item:t,visible:false}));
-    this.trajets2[0].visible=true;
-  }
-
-  protected readonly DATE_FORMAT = DATE_FORMAT;
-  protected readonly formatDate = formatDate;
+   protected readonly DATE_FORMAT = DATE_FORMAT;
+   protected readonly formatDate = formatDate;
 }
