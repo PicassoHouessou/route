@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { ReservationModule } from '../reservation/reservation.module';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -14,6 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     HomeComponent,
   ],
   imports: [
-    CommonModule,NzModalModule,NzButtonModule,NzBreadCrumbModule,NzLayoutModule,NzMenuModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
+    CommonModule,NzModalModule,NzCollapseModule,NzButtonModule,RouterOutlet,NzBreadCrumbModule,NzLayoutModule,NzMenuModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
   ],
 })
 export class HomeModule { }

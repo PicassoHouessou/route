@@ -32,6 +32,8 @@ export class ReservationComponent implements OnInit{
   alternatives=[];
   @Output() trajets:EventEmitter<any[]>=new EventEmitter();
 
+  @Output() infos:EventEmitter<{departure:string;destination:string;date:string;hour:string}>=new EventEmitter();
+
   loading=false;
   options_deaparture: AutoCompleteItem[] = [];
   options_destination: AutoCompleteItem[] = [];
@@ -87,6 +89,10 @@ export class ReservationComponent implements OnInit{
           )
           .subscribe(value=>{
             this.trajets.emit(value.journeys??[]);
+            this.infos.emit({departure:this.validateForm.get('deaparture')?.value as string,
+              destination:this.validateForm.get('destination')?.value as string,
+              date:tmp_date.toString(),
+              hour:tmp_date.toString()});
             this.loading=false;
           })
       }

@@ -19,18 +19,19 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeModule } from './home/home.module';
 import { StatistiqueModule } from './statistique/statistique.module';
+import { ProfileModule } from './profile/profile.module';
 
 registerLocaleData(fr);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
     NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ProfileModule,
     AuthModule,
     HomeModule,ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp({

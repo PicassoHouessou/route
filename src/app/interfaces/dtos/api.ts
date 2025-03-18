@@ -53,6 +53,11 @@ export interface JourneyItem{
     co2_emission?: any;
 }
 
+export interface CustomType{
+    item:JourneyItem;
+    visible:boolean;
+}
+
 export interface SectionItem{
     id:string;
     from: any;
@@ -68,11 +73,10 @@ export interface SectionItem{
 }
 
 
-export interface Statistic{
+export interface Historic{
     id?:string;
-    départ:string;
-    destination:string;
-    jours:Date;
-    horaire:Date;
-    nombre_fois:number
+    depart:string | undefined;
+    destination:string | undefined;
+    jour:string | undefined;
+    horaire:string | undefined;
 }
