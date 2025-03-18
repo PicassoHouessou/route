@@ -20,6 +20,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeModule } from './home/home.module';
 import { StatistiqueModule } from './statistique/statistique.module';
 import { ProfileModule } from './profile/profile.module';
+import { IconsProviderModule } from '@/app/icons-provider.module';
 
 registerLocaleData(fr);
 
@@ -29,6 +30,7 @@ registerLocaleData(fr);
     NotFoundComponent,
   ],
   imports: [
+    IconsProviderModule,
     BrowserModule,
     AppRoutingModule,
     ProfileModule,

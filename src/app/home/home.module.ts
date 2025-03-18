@@ -15,14 +15,31 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzTagComponent, NzTagModule } from 'ng-zorro-antd/tag';
+import { IconsProviderModule } from '../icons-provider.module';
 
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-  ],
-  imports: [
-    CommonModule,NzModalModule,NzCollapseModule,NzButtonModule,RouterOutlet,NzBreadCrumbModule,NzLayoutModule,NzMenuModule,NzIconModule,NzStepsModule,NzDropDownModule,NzAvatarModule,RouterModule,ReservationModule,NzListModule,NzTypographyModule
-  ],
+   declarations: [HomeComponent],
+   imports: [
+     IconsProviderModule,
+      CommonModule,
+      NzModalModule,
+      NzCollapseModule,
+      NzButtonModule,
+      RouterOutlet,
+      NzBreadCrumbModule,
+      NzLayoutModule,
+      NzMenuModule,
+      NzIconModule,
+      NzStepsModule,
+      NzDropDownModule,
+      NzAvatarModule,
+      RouterModule,
+      ReservationModule,
+      NzListModule,
+      NzTypographyModule,
+      NzTagModule,
+   ],
 })
-export class HomeModule { }
+export class HomeModule {}
