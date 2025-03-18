@@ -14,7 +14,7 @@ import dayjs from '@/config/dayjs';
 export class ReservationComponent implements OnInit{
   ngOnInit(): void {
     this.apiService.getCoordonnee('paris').subscribe(value=>{
-      this.options_deaparture=value.pt_objects;
+      this.options_departure=value.pt_objects;
     });
     this.apiService.getCoordonnee('calais').subscribe(value=>{
           this.options_destination=value.pt_objects;
@@ -24,7 +24,7 @@ export class ReservationComponent implements OnInit{
   private fb = inject(NonNullableFormBuilder);
   private apiService=inject(ApiServiceService);
   validateForm = this.fb.group({
-    deaparture: this.fb.control('Paris', [Validators.required]),
+    departure: this.fb.control('Paris', [Validators.required]),
     destination: this.fb.control('Calais', [Validators.required]),
     startDate:this.fb.control(dayjs().toDate()),
   });
@@ -35,21 +35,21 @@ export class ReservationComponent implements OnInit{
   @Output() infos:EventEmitter<{departure:string;destination:string;startDate:string}>=new EventEmitter();
 
   loading=false;
-  options_deaparture: AutoCompleteItem[] = [];
+  options_departure: AutoCompleteItem[] = [];
   options_destination: AutoCompleteItem[] = [];
 
   getString(coord:any){
     return `${coord?.lon};${coord?.lat}`;
   }
 
-  onInputDeaparture(event: Event): void {
+  onInputDeparture(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     if (value) {
       this.apiService.getCoordonnee(value).subscribe(value=>{
-        this.options_deaparture=value.pt_objects;
+        this.options_departure=value.pt_objects;
       });
     }
-    this.options_deaparture = value ? this.options_deaparture.filter(v=>v.name?.includes(value)) : [];
+    this.options_departure = value ? this.options_departure.filter(v=>v.name?.includes(value)) : [];
   }
 
   onInputDestination(event: Event): void {
@@ -69,23 +69,11 @@ export class ReservationComponent implements OnInit{
     if (this.validateForm.valid) {
       this.loading=true;
       const tmp_date= parseDate(this.validateForm.get<string>('startDate')?.value);
-      /*
-       //const tmp_date=new Date(this.validateForm.get<string>('date')?.value as string);
-      const tmp_date2=(new Date(this.validateForm.get<string>('hour')?.value as string));
-      tmp_date.setHours(tmp_date2.getHours());
-      tmp_date.setMinutes(tmp_date2.getMinutes());
-      tmp_date.setSeconds(tmp_date2.getSeconds());
-      tmp_date.setMilliseconds(tmp_date2.getMilliseconds());
-      const datetime=tmp_date.toLocaleString().split(' ')[0].split('/').reverse().join('')+'T'+tmp_date.toLocaleString().split(' ')[1].split(':').join('');
-
-       */
-      console.log("this.validateForm.get<string>('hour')?.value as string",this.validateForm.get<string>('hour')?.value as string);
-      //tmp_date.set('hour', 5).set('minute', 55).set('second', 15)
       const datetime=tmp_date.format('YYYYMMDDTHHMM');
-      const deaparture=this.getString(this.options_deaparture.find(v=>v.name?.includes(this.validateForm.get<string>('deaparture')?.value as string))?.stop_area?.coord);
+      const departure=this.getString(this.options_departure.find(v=>v.name?.includes(this.validateForm.get<string>('departure')?.value as string))?.stop_area?.coord);
       const destination=this.getString(this.options_destination.find(v=>v.name?.includes(this.validateForm.get<string>('destination')?.value as string))?.stop_area?.coord);
-      if (deaparture && destination) {
-        this.apiService.getTrajets({from:deaparture,
+      if (departure && destination) {
+        this.apiService.getTrajets({from:departure,
           to:destination,
           datetime:datetime})
           .pipe(
@@ -96,7 +84,7 @@ export class ReservationComponent implements OnInit{
           )
           .subscribe(value=>{
             this.trajets.emit(value.journeys??[]);
-            this.infos.emit({departure:this.validateForm.get('deaparture')?.value as string,
+            this.infos.emit({departure:this.validateForm.get('departure')?.value as string,
               destination:this.validateForm.get('destination')?.value as string,
               startDate:tmp_date.toString()
             });

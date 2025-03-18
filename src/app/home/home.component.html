@@ -9,7 +9,7 @@
           </div>
           <div class="relative z-10 flex items-center lg:hidden">
             <!-- Mobile menu button -->
-            <button type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
+            <button type="button" nz-dropdown [nzDropdownMenu]="menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
               <span class="sr-only">Open menu</span>
               <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -57,14 +57,14 @@
                       [nzActive]="trajet.visible"
                       [nzExtra]="button"
                     >
-                      <nz-steps [nzCurrent]="1" nzProgressDot nzDirection="vertical">
+                      <nz-steps [nzCurrent]="$index" nzProgressDot nzDirection="vertical">
                         @for (section of trajet.item.sections; track section.id) {
                             @if (section?.from && section?.to) {
                                 @if ($index<trajet.item.sections!.length-2) {
-                                    <nz-step [nzTitle]="section.from.name" [nzDescription]="section.from.name"></nz-step>
+                                  <nz-step [nzTitle]="section.to.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)"></nz-step>
                                 }
                                 @else{
-                                    <nz-step [nzTitle]="section.to.name" [nzDescription]="section.to.name"></nz-step>
+                                  <nz-step [nzTitle]="section.from.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)"></nz-step>
                                 }
                             }
                         }
@@ -85,10 +85,10 @@
                     @for (section of currentTraject?.sections; track section.id) {
                         @if (section?.from && section?.to) {
                             @if ($index<currentTraject?.sections!.length-2) {
-                                <nz-step [nzTitle]="section.from.name" [nzDescription]="section.from.name"></nz-step>
+                                <nz-step [nzTitle]="section.from.name" [nzDescription]="getDescription(section)"></nz-step>
                             }
                             @else{
-                                <nz-step [nzTitle]="section.to.name" [nzDescription]="section.to.name"></nz-step>
+                                <nz-step [nzTitle]="section.to.name" [nzDescription]="getDescription(section)"></nz-step>
                             }
                         }
                     }

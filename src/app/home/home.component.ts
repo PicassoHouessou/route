@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { ApiServiceService } from '../api-service.service';
-import { commercial_modes as Commercial, CustomType, JourneyItem } from '../interfaces/dtos/api';
+import { commercial_modes as Commercial, CustomType, JourneyItem, SectionItem } from '../interfaces/dtos/api';
 import { Auth, User, user } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
    infos: InfoType = {};
 
    getInfos($event: InfoType) {
-      console.log($event);
       this.infos = $event;
    }
 
@@ -114,12 +113,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       .join('h');
   }
 
-  getHeader({ item:traject }: any) {
+  getDescription(section:SectionItem){
+   return section?.display_informations?.commercial_mode??section.mode;
+  }
+
+  getHeader({ item:traject }: CustomType) {
       if (!traject) {
          return '';
       }
-      let title = this.formatDuration(traject?.duration);
-      if (traject?.nb_transfers > 0) {
+      let title = this.formatDuration(traject?.duration!);
+      if (traject?.nb_transfers! > 0) {
         title = title+` ${traject?.nb_transfers} correspondances`;
       }
       return `${title}`;
