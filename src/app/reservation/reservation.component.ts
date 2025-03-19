@@ -47,7 +47,17 @@ export class ReservationComponent implements OnInit{
   getString(coord:any){
     return `${coord?.lon};${coord?.lat}`;
   }
+toggleInput(){
+  //this.validateForm.set
+  const departure =this.validateForm.get<string>('departure')?.value??"";
+  this.validateForm.get<string>('departure')?.setValue(this.validateForm.get<string>('destination')?.value);
+  this.validateForm.get<string>('destination')?.setValue(departure);
+  this.validateForm.get<string>('destination')?.setValue(departure);
+  const options_departure = this.options_departure;
+  this.options_departure=this.options_destination;
+  this.options_destination=options_departure;
 
+}
   onInputDeparture(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     if (value) {
