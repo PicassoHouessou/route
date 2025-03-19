@@ -2,7 +2,7 @@
   <div class="flex flex-col rounded-md p-4">
     <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
       <div class="flex flex-row">
-        <nz-form-item class="w-full pr-0.5 mb-0.5">
+        <nz-form-item class="w-full pr-0.5 mb-4">
           <nz-form-control nzErrorTip="Please input your departure!">
             <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
               <input formControlName="departure" nz-input placeholder="departure" (input)="onInputDeparture($event)"
@@ -15,10 +15,10 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-        <div class="mx-1 cursor-pointer mb-0.5" (click)="toggleInput()">
-           <mat-icon class="w-full h-full m-2">change_circle</mat-icon>
+        <div class="mx-1 cursor-pointer mb-4 flex flex-col items-center justify-center" (click)="toggleInput()">
+           <mat-icon>change_circle</mat-icon>
         </div>
-        <nz-form-item class="w-full pl-0.5 mb-0.5">
+        <nz-form-item class="w-full pl-0.5 mb-4">
           <nz-form-control nzErrorTip="Please input your destination!">
             <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
               <input formControlName="destination" nz-input placeholder="destination"

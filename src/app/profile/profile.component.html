@@ -1,40 +1,6 @@
 <div class="h-full">
   <main class="mx-auto max-w-7xl pb-10 lg:py-12 lg:px-8">
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-      <!-- <aside class="py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
-        <nav class="space-y-1">
-
-          <a href="#" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
-             Heroicon name: outline/key -->
-            <!--<svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-            </svg>
-            <span class="truncate">Password</span>
-          </a>
-          <a href="#" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
-             Heroicon name: outline/bell -->
-            <!--<svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-            </svg>
-            <span class="truncate">Notifications</span>
-          </a>
-          <a href="#" class="bg-gray-50 text-orange-600 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium" aria-current="page">
-             Heroicon name: outline/credit-card -->
-            <!--<svg class="text-orange-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-            </svg>
-            <span class="truncate">Plan &amp; Billing</span>
-          </a>
-          <a href="#" class="text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium">
-             Heroicon name: outline/squares-plus -->
-            <!--<svg class="text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
-            </svg>
-            <span class="truncate">Integrations</span>
-          </a>
-        </nav>
-      </aside> -->
-      <!-- Payment details -->
       <div class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
         <section aria-labelledby="payment-details-heading">
           <form class="space-y-4" [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
@@ -63,7 +29,6 @@
             </div>
           </form>
         </section>
-        <!-- Billing history -->
         <section aria-labelledby="billing-history-heading">
           <div class="bg-white pt-6 shadow sm:overflow-hidden sm:rounded-md">
             <div class="px-4 sm:px-6">
@@ -92,8 +57,11 @@
                           <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{hist.destination}}</td>
                           <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{formatDate(hist.startDate,undefined,false)}} </td>
                           <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">{{formatTime(hist.startDate) }}</td>
-                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500"><button class="rounded-full" nz-button nzDanger (click)="deleteHistoric(hist)" >Supprimer</button></td>
+                          <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500"><button class="rounded-full" nz-button nzDanger (click)="openDialog('500ms','500ms');currentHist=hist" >Supprimer</button></td>
                         </tr>
+                        <ng-template #modal>
+                          <app-dialog (ok)="handleClic($event)"/>
+                        </ng-template>
                       }
                       </tbody>
                     </table>
