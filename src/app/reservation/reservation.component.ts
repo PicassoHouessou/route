@@ -21,6 +21,12 @@ export class ReservationComponent implements OnInit{
         });
   }
 
+  getIcon():string{
+    const icons=["home","home_pin","synagogue","move","explore_nearby"];
+    const index=Math.floor(Math.random()*(icons.length-1));
+    return icons[index];
+  }
+
   private fb = inject(NonNullableFormBuilder);
   private apiService=inject(ApiServiceService);
   validateForm = this.fb.group({

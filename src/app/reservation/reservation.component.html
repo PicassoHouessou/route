@@ -6,12 +6,12 @@
           <nz-form-control nzErrorTip="Please input your departure!">
             <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
               <input formControlName="departure" nz-input placeholder="departure" (input)="onInputDeparture($event)"
-                     [nzAutocomplete]="departure" />
-              <nz-autocomplete nzBackfill #departure>
+                     [matAutocomplete]="departure" />
+              <mat-autocomplete #departure="matAutocomplete">
                 @for (item of options_departure; track item.id) {
-                  <nz-auto-option [nzValue]="item.name">{{ item.name }}</nz-auto-option>
+                  <mat-option [value]="item.name"><mat-icon fontIcon="home"></mat-icon>{{item.name}}</mat-option>
                 }
-              </nz-autocomplete>
+              </mat-autocomplete>
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
@@ -20,12 +20,12 @@
             <nz-input-group nzSize="large" class="w-full rounded-md" nzPrefixIcon="environment">
               <input formControlName="destination" nz-input placeholder="destination"
                      (input)="onInputDestination($event)"
-                     [nzAutocomplete]="destination" />
-              <nz-autocomplete nzBackfill #destination>
-                @for (item of options_destination; track item.id) {
-                  <nz-auto-option [nzValue]="item.name">{{ item.name }}</nz-auto-option>
-                }
-              </nz-autocomplete>
+                     [matAutocomplete]="destination" />
+                <mat-autocomplete #destination="matAutocomplete">
+                  @for (item of options_destination; track item.id) {
+                    <mat-option [value]="item.name"><mat-icon fontIcon="home_pin"></mat-icon>{{item.name}}</mat-option>
+                  }
+                </mat-autocomplete>
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>

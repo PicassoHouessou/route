@@ -79,4 +79,5 @@ export interface Historic{
     depart:string | undefined;
     destination:string | undefined;
     startDate:string | undefined;
+    owner?:string | undefined;
 }

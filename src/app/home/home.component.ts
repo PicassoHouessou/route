@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getDescription(section:SectionItem){
-   return section?.display_informations?.commercial_mode??section.mode;
+   return this.formatDuration(section.duration);
   }
 
   getHeader({ item:traject }: CustomType) {
@@ -122,9 +122,9 @@ export class HomeComponent implements OnInit, OnDestroy {
          return '';
       }
       let title = this.formatDuration(traject?.duration!);
-      if (traject?.nb_transfers! > 0) {
-        title = title+` ${traject?.nb_transfers} correspondances`;
-      }
+      // if (traject?.nb_transfers! > 0) {
+      //   title = title+` ${traject?.nb_transfers} correspondances`;
+      // }
       return `${title}`;
    }
 

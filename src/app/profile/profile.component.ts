@@ -1,24 +1,26 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateProfile } from 'firebase/auth';
 import { Auth, updateEmail, user, User } from '@angular/fire/auth';
 import { HistoricService } from '../statistique/statistique.service';
 import { Historic } from '../interfaces/dtos/api';
 import { formatDate, formatTime } from '@/config/util.date';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-profile',
    templateUrl: './profile.component.html',
    styleUrl: './profile.component.css',
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements AfterViewInit {
    profileForm: FormGroup;
    private auth: Auth = inject(Auth);
    private historicService=inject(HistoricService);
+   private router:Router=inject(Router);
    private $user:User| null=null;
    constructor(private formBuilder: FormBuilder) {
       const user = this.auth.currentUser;
-      console.log(user);
+      this.$user=this.auth.currentUser;
       this.profileForm = formBuilder.group({
          email: [
             user?.email ?? '',
@@ -38,9 +40,9 @@ export class ProfileComponent implements OnInit {
    }
 
    historiques:Historic[]=[];
-   async ngOnInit(): Promise<void> {
+   async ngAfterViewInit(): Promise<void> {
       try {
-         const res=await this.historicService.getAllHistoric();
+         const res=await this.historicService.getAllHistoric(this.$user?.email as string);
          if (!res.empty) {
 
             res.forEach(doc=>this.historiques.push(doc.data() as Historic));
@@ -76,7 +78,7 @@ export class ProfileComponent implements OnInit {
    }
 
    deleteHistoric(hist:Historic){
-      this.historicService.deleteHistoric(hist).then(value=>console.log(value)).catch(error=>console.log("echec de la suppression"));
+      this.historicService.deleteHistoric(hist).then(()=>this.router.navigateByUrl('/profil',{onSameUrlNavigation:'reload'})).catch(error=>console.log("echec de la suppression"));
    }
 
   protected readonly formatDate = formatDate;
