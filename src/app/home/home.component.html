@@ -1,59 +1,102 @@
 <div class="h-full">
-    <app-header />
-
-        <div class="flex-grow">
-            <router-outlet>
-              <div [class.cacher]="getUrl.includes('profil')" class="" nz-row>
-                <div nz-col nzSpan="12" nzOffset="6">
-                  <app-reservation (trajets)="getTraject($event)" (infos)="getInfos($event)"/></div>
+   <app-header />
+   <div class="flex-grow">
+      <router-outlet>
+         <div [class.cacher]="getUrl.includes('profil')" class="" nz-row>
+            <div nz-col nzSpan="12" nzOffset="6">
+               <app-reservation
+                  (trajets)="getTraject($event)"
+                  (infos)="getInfos($event)"
+               />
             </div>
-
-            <div class="sm:mx-10 mx-4 overflow-y-auto">
-                <nz-collapse [class.cacher]="getUrl.includes('profil')">
-                  @for (trajet of trajets2; track trajet.item.id) {
-                    <nz-collapse-panel
-                      [nzHeader]="getHeader(trajet)"
-                      [nzActive]="trajet.visible"
-                      [nzExtra]="button"
-                    >
-                      <nz-steps [nzCurrent]="$index" nzProgressDot nzDirection="vertical">
+         </div>
+         <div class="sm:mx-10 mx-4 overflow-y-auto">
+            <nz-collapse [class.cacher]="getUrl.includes('profil')">
+               @for (trajet of trajets2; track trajet.item.id) {
+                  <nz-collapse-panel
+                     [nzHeader]="header_list"
+                     [nzActive]="trajet.visible"
+                     [nzExtra]="button"
+                  >
+                  <ng-template #header_list>
+                    <div class="flex items-center">
+                    (<span class="pr-1">{{getHeader(trajet)}}</span>)<span class="px-1">{{infos.departure}}</span> <mat-icon fontIcon="east"></mat-icon> <span class="px-1">{{infos.destination}}</span>
+                    </div>
+                  </ng-template>
+                     <mat-vertical-stepper #stepper linear="true" animationDuration="500">
                         @for (section of trajet.item.sections; track section.id) {
-                            @if (section?.from && section?.to) {
-                                @if ($index<trajet.item.sections!.length-2) {
-                                  <nz-step [nzTitle]="section.to.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)" [nzIcon]="customIcon"></nz-step>
-                                }
-                                @else{
-                                  <nz-step [nzTitle]="section.from.name" [nzSubtitle]="formatDuration(section.duration)" [nzDescription]="getDescription(section)" [nzIcon]="customIcon"></nz-step>
-                                }
-                            }
+                           @if (section?.from && section?.to) {
+                              @if ($index < trajet.item.sections!.length - 2) {
+                                 <mat-step editable="false">
+                                    <ng-template matStepLabel>{{
+                                       section.from.name
+                                    }}</ng-template>
+                                    <ng-template matStepContent>
+                                      <p>{{getDescription(section)}}</p>
+                                    </ng-template>
+                                 </mat-step>
+                              } @else {
+                                 <mat-step editable="false">
+                                    <ng-template matStepLabel>{{
+                                       section.to.name
+                                    }}</ng-template>
+                                 </mat-step>
+                              }
+                           }
                         }
-                    </nz-steps>
-                    <ng-template #button>
-                      <button nz-button class="rounded-full" nzType="primary" (click)="choise($event,trajet.item);showModal()">Choisir</button>
-                    </ng-template>
-                    </nz-collapse-panel>
-                  }
-                </nz-collapse>
-
-            </div>
-            </router-outlet>
-          </div>
-        <nz-modal [(nzVisible)]="isVisible" [nzTitle]="parseDate(currentTraject?.arrival_date_time).toString()" nzCancelText="Annuler" nzOkText="Valider" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-            <ng-container *nzModalContent>
-                <nz-steps [nzCurrent]="1" nzProgressDot nzDirection="vertical">
-                    @for (section of currentTraject?.sections; track section.id) {
-                        @if (section?.from && section?.to) {
-                            @if ($index<currentTraject?.sections!.length-2) {
-                                <nz-step [nzTitle]="section.from.name" [nzDescription]="getDescription(section)"></nz-step>
-                            }
-                            @else{
-                                <nz-step [nzTitle]="section.to.name" [nzDescription]="getDescription(section)"></nz-step>
-                            }
-                        }
-                    }
-                </nz-steps>
-            </ng-container>
-          </nz-modal>
-
+                     </mat-vertical-stepper>
+                     <ng-template #button>
+                        <button
+                           nz-button
+                           class="rounded-full"
+                           nzType="primary"
+                           (click)="choise($event, trajet.item); showModal()"
+                        >
+                           Choisir
+                        </button>
+                     </ng-template>
+                  </nz-collapse-panel>
+               }
+            </nz-collapse>
+         </div>
+      </router-outlet>
+   </div>
+   <nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="title_modal"
+      nzCancelText="Annuler"
+      nzOkText="Valider"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+   >
+    <ng-template #title_modal>
+      <div class="flex items-center">
+      (<span class="pr-1">{{getHeader({item:currentTraject!,visible:false})}}</span>)<span class="px-1">{{infos.departure}}</span> <mat-icon fontIcon="east"></mat-icon> <span class="px-1">{{infos.destination}}</span>
       </div>
+    </ng-template>
+      <ng-container *nzModalContent>
+         <mat-vertical-stepper #stepper linear="false">
+            @for (section of currentTraject?.sections; track section.id) {
+               @if (section?.from && section?.to) {
+                  @if ($index < (currentTraject?.sections)!.length - 2) {
+                     <mat-step editable="false">
+                        <ng-template matStepperIcon="home">
+                           <mat-icon fontIcon="home"></mat-icon>
+                        </ng-template>
+                        <ng-template matStepContent>
+                          <p>{{getDescription(section)}}</p>
+                        </ng-template>
+                        <ng-template matStepLabel>{{ section.from.name }}</ng-template>
+                     </mat-step>
+                  } @else {
+                     <mat-step editable="false">
+                        <ng-template matStepLabel>{{ section.to.name }}</ng-template>
+                     </mat-step>
+                  }
+               }
+            }
+         </mat-vertical-stepper>
+      </ng-container>
+   </nz-modal>
+</div>
 <ng-template #customIcon><span nz-icon nzType="smile"></span></ng-template>

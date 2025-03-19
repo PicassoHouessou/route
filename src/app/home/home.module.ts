@@ -20,6 +20,7 @@ import { IconsProviderModule } from '../icons-provider.module';
 import {  MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../header/header.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
  @NgModule({
@@ -43,7 +44,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
        NzListModule,
        NzTypographyModule,
        NzTagModule,
-       MatIconModule,NzGridModule
+       MatIconModule,NzGridModule,MatStepperModule
     ],
  })
  export class HomeModule {}

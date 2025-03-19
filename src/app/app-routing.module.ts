@@ -25,7 +25,8 @@ const routes: Routes = [
         path:'profil',
         component:ProfileComponent,
         pathMatch:'full',
-        title:'Profile'
+        title:'Profile',
+        runGuardsAndResolvers:(from,to)=>from.url===to.url
       },
     ]
   },

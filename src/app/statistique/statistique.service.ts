@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, user } from '@angular/fire/auth';
-import { collection, Firestore,addDoc, doc, collectionData, deleteDoc, setDoc, query, where, getDocs } from '@angular/fire/firestore';
+import { collection, Firestore,addDoc, doc, collectionData, deleteDoc, setDoc, query, where, getDocs, getDoc } from '@angular/fire/firestore';
 import { Historic } from '../interfaces/dtos/api';
 
 @Injectable({
@@ -23,12 +23,14 @@ export class HistoricService {
     return addDoc($stat,{depart:stat.depart,destination:stat.destination,startDate:stat.startDate,owner:this.$user});
   }
 
-  getAllHistoric(){
-    const q = query(collection(this.firestore, "historique"));
+  getAllHistoric(user:string){
+    const q = query(collection(this.firestore, "historique"),where("owner","==",user));
     return getDocs(q);
   }
 
-  deleteHistoric(hist:Historic){
-    return deleteDoc(doc(this.firestore,'historique',hist.startDate as string));
+  async deleteHistoric(hist:Historic){
+    const q = query(collection(this.firestore, "historique"), where("startDate", "==", hist.startDate),where("owner", "==", hist.owner));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(document=>deleteDoc(document.ref));
   }
 }

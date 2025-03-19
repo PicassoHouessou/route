@@ -9,7 +9,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
-import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -18,7 +19,7 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
     ReservationComponent
   ],
   imports: [
-    CommonModule,NzFormModule,ReactiveFormsModule,NzButtonModule,NzInputModule,NzDatePickerModule,NzCardModule,NzTimePickerModule,NzAutocompleteModule
+    CommonModule,NzFormModule,MatAutocompleteModule,ReactiveFormsModule,NzButtonModule,NzInputModule,NzDatePickerModule,NzCardModule,NzTimePickerModule,MatIconModule
   ],
   exports:[ReservationComponent]
 })
