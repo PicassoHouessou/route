@@ -3,12 +3,16 @@ import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ProfileComponent } from './profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import { DialogComponent } from './dialog/dialog.component';
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, DialogComponent],
   imports: [
     CommonModule,
     NzButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,MatButtonModule
   ]
 })
 export class ProfileModule { }

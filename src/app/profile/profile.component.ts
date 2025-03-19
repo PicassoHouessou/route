@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { updateProfile } from 'firebase/auth';
-import { Auth, updateEmail, user, User } from '@angular/fire/auth';
+import { Auth, updateEmail, User } from '@angular/fire/auth';
 import { HistoricService } from '../statistique/statistique.service';
 import { Historic } from '../interfaces/dtos/api';
 import { formatDate, formatTime } from '@/config/util.date';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
    selector: 'app-profile',
@@ -13,12 +15,22 @@ import { Router } from '@angular/router';
    styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements AfterViewInit {
+
+   handleClic($event: boolean) {
+      if ($event) {
+         this.deleteHistoric(this.currentHist!);
+      }
+   }
    profileForm: FormGroup;
    private auth: Auth = inject(Auth);
    private historicService=inject(HistoricService);
    private router:Router=inject(Router);
    private $user:User| null=null;
-   constructor(private formBuilder: FormBuilder) {
+
+   currentHist:Historic|undefined;
+   @ViewChild('modal') modal!:TemplateRef<DialogComponent>;
+
+   constructor(private formBuilder: FormBuilder,private readonly dialog: MatDialog) {
       const user = this.auth.currentUser;
       this.$user=this.auth.currentUser;
       this.profileForm = formBuilder.group({
@@ -38,6 +50,15 @@ export class ProfileComponent implements AfterViewInit {
          ],
       });
    }
+
+   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+      this.dialog.open(this.modal, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+    }
+
 
    historiques:Historic[]=[];
    async ngAfterViewInit(): Promise<void> {
@@ -77,8 +98,10 @@ export class ProfileComponent implements AfterViewInit {
       return this.profileForm.get('fullName')?.value;
    }
 
-   deleteHistoric(hist:Historic){
-      this.historicService.deleteHistoric(hist).then(()=>this.router.navigateByUrl('/profil',{onSameUrlNavigation:'reload'})).catch(error=>console.log("echec de la suppression"));
+   deleteHistoric(hist:Historic):void{
+      this.historicService.deleteHistoric(hist)
+      .then(()=>this.historiques=this.historiques.filter(h=>h.startDate!==hist.startDate))
+      .catch(error=>console.log("echec de la suppression"));
    }
 
   protected readonly formatDate = formatDate;

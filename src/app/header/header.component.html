@@ -7,14 +7,13 @@
         </div>
       </div>
       <div class="relative z-10 flex items-center lg:hidden">
-        <!-- Mobile menu button -->
-        <button type="button" nzTrigger="click" nz-dropdown [nzDropdownMenu]="mobile_menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
-          <div> <nz-dropdown-menu #mobile_menu="nzDropdownMenu">
-            <ul nz-menu>
-              <a routerLink="/profil" nz-menu-item>Profil</a>
-              <li nz-menu-item (click)="logOut()">Déconnection</li>
-            </ul>
-          </nz-dropdown-menu></div>
+        <button type="button" mat-button [matMenuTriggerFor]="mobile_menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
+          <div> 
+            <mat-menu #mobile_menu="matMenu">
+            <a mat-menu-item routerLink="/profil">Profil</a>
+            <li mat-menu-item (click)="logOut()">Se déconnecter</li>
+          </mat-menu>
+        </div>
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
@@ -26,16 +25,13 @@
       <div class="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
         <div class="relative ml-4 flex-shrink-0">
           <div>
-            <a nz-dropdown [nzDropdownMenu]="menu">
-              <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+            <button mat-button color="primary" [matMenuTriggerFor]="menu">
               {{email}}
-            </a>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <ul nz-menu>
-                <a routerLink="/profil" nz-menu-item>Profil</a>
-                <li nz-menu-item (click)="logOut()">Se déconnecter</li>
-              </ul>
-            </nz-dropdown-menu>
+            </button>
+            <mat-menu #menu="matMenu">
+              <a mat-menu-item routerLink="/profil">Profil</a>
+              <li mat-menu-item (click)="logOut()">Se déconnecter</li>
+            </mat-menu>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@
                     (<span class="pr-1">{{getHeader(trajet)}}</span>)<span class="px-1">{{infos.departure}}</span> <mat-icon fontIcon="east"></mat-icon> <span class="px-1">{{infos.destination}}</span>
                     </div>
                   </ng-template>
-                     <mat-vertical-stepper #stepper linear="true" animationDuration="500">
+                     <mat-vertical-stepper #stepper linear="false" animationDuration="500">
                         @for (section of trajet.item.sections; track section.id) {
                            @if (section?.from && section?.to) {
                               @if ($index < trajet.item.sections!.length - 2) {
