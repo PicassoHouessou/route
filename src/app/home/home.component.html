@@ -3,14 +3,14 @@
    <div class="flex-grow">
       <router-outlet>
          <div [class.cacher]="getUrl.includes('profil')" class="flex justify-center">
-            <div class="sm:w-4/6 w-5/6">
+            <div class="sm:w-3/6 w-5/6">
                <app-reservation
                   (trajets)="getTraject($event)"
                   (infos)="getInfos($event)"
                />
             </div>
          </div>
-         <div class="sm:mx-10 mx-4 overflow-y-auto">
+         <div class="sm:mx-40 mx-auto my-5 overflow-y-auto">
             <mat-accordion [class.cacher]="getUrl.includes('profil')">
                @for (trajet of trajets2; track trajet.item.id) {
                   <mat-expansion-panel [hideToggle]="trajet.visible">
@@ -46,16 +46,16 @@
                               @if (section?.from && section?.to) {
                                  @if ($index < trajet.item.sections!.length - 2) {
                                     <mat-step editable="false">
-                                       <ng-template matStepLabel>{{
+                                       <ng-template matStepLabel><span class="pr-2">({{getDepartureHour(section)[0]}})</span>{{
                                           section.from.name
                                        }}</ng-template>
                                        <ng-template matStepContent>
-                                          <p>{{ getDescription(section) }}</p>
+                                          <p>{{getDescription(section)}}</p>
                                        </ng-template>
                                     </mat-step>
                                  } @else {
                                     <mat-step editable="false">
-                                       <ng-template matStepLabel>{{
+                                       <ng-template matStepLabel><span class="pr-2">({{getDepartureHour(section)[0]}})</span>{{
                                           section.to.name
                                        }}</ng-template>
                                     </mat-step>
@@ -147,13 +147,13 @@
                         <mat-icon>forum</mat-icon>
                      </ng-template>
                      <ng-template matStepContent>
-                        <p>{{ getDescription(section)}}</p>
+                        <p>{{getDescription(section)}}</p>
                      </ng-template>
-                     <ng-template matStepLabel>{{ section.from.name }}</ng-template>
+                     <ng-template matStepLabel>{{ section.from.name }} {{getDepartureHour(section)[0]}}</ng-template>
                   </mat-step>
                } @else {
                   <mat-step editable="false">
-                     <ng-template matStepLabel>{{ section.to.name }}</ng-template>
+                     <ng-template matStepLabel><span class="pr-2">({{getDepartureHour(section)[0]}})</span>{{ section.to.name }}</ng-template>
                   </mat-step>
                }
             }
