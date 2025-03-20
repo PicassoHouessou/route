@@ -51,6 +51,7 @@ export interface JourneyItem{
     arrival_date_time?: string;
     calendars?: any[];
     co2_emission?: any;
+    price?:number;
 }
 
 export interface CustomType{
