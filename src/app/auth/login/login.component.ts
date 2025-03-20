@@ -14,7 +14,7 @@ export class LoginComponent {
   errorMessage : String ="";
 
   constructor(private fb: FormBuilder, private authService: AuthService,private readonly router:Router){
-    //Initialiser notre formulaire 
+    //Initialiser notre formulaire
     this.loginForm = this.fb.group({
       email:['user@gmail.com',[
         Validators.required,
@@ -50,7 +50,7 @@ export class LoginComponent {
   handleCancel(): void {
     this.isVisible = false;
   }
- 
+
 
   get email() {
     return this.loginForm.get('email');
@@ -62,7 +62,7 @@ export class LoginComponent {
 
 
   //connexion avec google
-  
+
   async signInGoogle(){
     try {
       const res= await this.authService.signInGoogle();
@@ -78,12 +78,12 @@ export class LoginComponent {
  //Méthode pour la connexion
   async signIn(){
 
-    console.log("Statut du formulaire : ", this.loginForm.status); 
+    console.log("Statut du formulaire : ", this.loginForm.status);
     console.log("Erreurs email : ", this.email?.errors);
     console.log("Erreurs password : ", this.password?.errors);
 
     this.loginForm.markAllAsTouched();
-    
+
     if (this.loginForm.valid) {
       try{
         const auth=await this.authService.signIn({
@@ -104,7 +104,7 @@ export class LoginComponent {
   getEmailError(): string{
     const emailControl = this.loginForm.controls['email']
     if (emailControl.hasError('required'))  {return "L'email est requis.";}
-  
+
     if (emailControl.hasError('email')) return "L'adresse email n'est pas valide";
 
     return "";
@@ -112,7 +112,7 @@ export class LoginComponent {
   getPasswordError(): string {
     const passwordControl = this.loginForm.controls['password'];
     if (passwordControl.hasError('required')) {
-      return "le mot de passe est requis"; 
+      return "le mot de passe est requis";
     }
     if (passwordControl.hasError('minlength'))
       return "Le mot de passe doit contenir au minimum 4 caractères."
@@ -125,5 +125,5 @@ export class LoginComponent {
 
     return "";
   }
-  
+
 }
