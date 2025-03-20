@@ -20,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {MatCardModule} from '@angular/material/card';
 
  @NgModule({
     declarations: [HomeComponent,HeaderComponent],
@@ -38,7 +38,7 @@ import {MatDividerModule} from '@angular/material/divider';
        NzTypographyModule,
        MatMenuModule,
        NzTagModule,
-       MatButtonModule,
+       MatButtonModule,MatCardModule,
        MatIconModule,NzGridModule,MatStepperModule,MatExpansionModule,MatDialogModule,MatDividerModule
     ],
  })

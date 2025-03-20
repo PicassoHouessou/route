@@ -10,7 +10,6 @@ import { HistoricService } from '../statistique/statistique.service';
 import { DATE_FORMAT } from '@/config/constant';
 import { presetColors } from 'ng-zorro-antd/core/color';
 import { MatDialog } from '@angular/material/dialog';
-import dayjs from '../../config/dayjs';
 interface InfoType {
   departure?: string; destination?: string;
   startDate?: string;
@@ -27,11 +26,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.infos = $event;
    }
 
+   getNewPrice(price:number){
+      return 1.5*price;
+   }
    currentTraject: JourneyItem | null = null;
 
-   choise($event: MouseEvent, $traject: JourneyItem) {
-      $event.stopPropagation();
+   choise( $traject: JourneyItem) {
       this.currentTraject = $traject;
+      console.log(this.currentTraject);
       this.dialog.open(this.current_itineraire,{
          width:"50%",
          height:"50%",
@@ -119,7 +121,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     return [hours, minutes]
       .map(unit => String(unit).padStart(2, '0'))
-      .join('h');
+      .join(':');
   }
 
   getDescription(section:SectionItem){
@@ -134,9 +136,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       return `${title}`;
    }
 
+   getCorrespondance(traject:JourneyItem){
+      if (traject.nb_transfers && traject.nb_transfers>1) {
+         return `(${traject.nb_transfers}) correspondances`;
+      }
+      else if (traject.nb_transfers && traject.nb_transfers==1) {
+         return `(${traject.nb_transfers}) correspondance`;
+      }
+      return '';
+   }
+
    getTraject($event: any[]) {
       this.trajets2 = $event.map((t) => ({ item: {...t,price:Math.random()*150}, visible: false }));
-      console.log($event);
       this.trajets2[0].visible = true;
    }
 
@@ -148,8 +159,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       const arrival_hour=section.arrival_date_time.split('T')[1].substring(0,2);
       const arrival_minute=section.arrival_date_time.split('T')[1].substring(2,4);
       const arrival_second=section.arrival_date_time.split('T')[1].substring(4,6);
-      const duration=`${Math.abs(parseInt(departure_hour)-parseInt(arrival_hour))}h${Math.abs(parseInt(arrival_minute)-parseInt(departure_minute))}`
-      return [`${departure_hour}h${departure_minute}`,duration];
+      const duration=`${Math.abs(parseInt(departure_hour)-parseInt(arrival_hour))}:${Math.abs(parseInt(arrival_minute)-parseInt(departure_minute))}`
+      return [`${departure_hour}:${departure_minute}`,duration];
    }
 
    protected readonly DATE_FORMAT = DATE_FORMAT;
