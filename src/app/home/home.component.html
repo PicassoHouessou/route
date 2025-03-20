@@ -1,8 +1,8 @@
-<div class="h-full">
+<div class="h-screen w-screen">
    <app-header />
-   <div class="flex-grow">
+   <div class="w-full">
       <router-outlet>
-         <div [class.cacher]="getUrl.includes('profil')" class="flex justify-center">
+         <div [class.cacher]="getUrl.includes('profil')" class="flex bg-slate-950 justify-center">
             <div class="sm:w-3/6 w-5/6">
                <app-reservation
                   (trajets)="getTraject($event)"
@@ -10,118 +10,35 @@
                />
             </div>
          </div>
-         <div class="sm:mx-40 mx-auto my-5 overflow-y-auto">
-            <mat-accordion [class.cacher]="getUrl.includes('profil')">
-               @for (trajet of trajets2; track trajet.item.id) {
-                  <mat-expansion-panel [hideToggle]="trajet.visible">
-                     <mat-expansion-panel-header>
-                        <mat-panel-title>
-                           <div class="flex items-center">
-                              (<span class="pr-1">{{ getHeader(trajet) }}</span
-                              >)<span class="px-1">{{ infos.departure }}</span>
-                              <mat-icon fontIcon="east"></mat-icon>
-                              <span class="px-1">{{ infos.destination }}</span>
-                           </div>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                           {{trajet.item.price|currency:'EUR'}}
-                        </mat-panel-description>
-                        <mat-action-row>
-                           <button
-                              mat-button
-                              color="primary"
-                              (click)="choise($event, trajet.item); showModal()"
-                           >
-                              Choisir
-                           </button>
-                        </mat-action-row>
-                     </mat-expansion-panel-header>
-                     <ng-template matExpansionPanelContent>
-                        <mat-vertical-stepper
-                           #stepper
-                           linear="false"
-                           animationDuration="500"
-                        >
-                           @for (section of trajet.item.sections; track section.id) {
-                              @if (section?.from && section?.to) {
-                                 @if ($index < trajet.item.sections!.length - 2) {
-                                    <mat-step editable="false">
-                                       <ng-template matStepLabel><span class="pr-2">({{getDepartureHour(section)[0]}})</span>{{
-                                          section.from.name
-                                       }}</ng-template>
-                                       <ng-template matStepContent>
-                                          <p>{{getDescription(section)}}</p>
-                                       </ng-template>
-                                    </mat-step>
-                                 } @else {
-                                    <mat-step editable="false">
-                                       <ng-template matStepLabel><span class="pr-2">({{getDepartureHour(section)[0]}})</span>{{
-                                          section.to.name
-                                       }}</ng-template>
-                                    </mat-step>
-                                 }
-                              }
-                           }
-                        </mat-vertical-stepper>
-                        <ng-template #button>
-                           <button
-                              nz-button
-                              class="rounded-lg bg-gray-800 text-white hover:bg-gray-900 hover:text-white"
-                              nzType="primary"
-                              (click)="choise($event, trajet.item); showModal()"
-                           >
-                              Choisir
-                           </button>
-                        </ng-template>
-                     </ng-template>
-                  </mat-expansion-panel>
-               }
-            </mat-accordion>
+         <div [class.cacher]="getUrl.includes('profil')" class="sm:mx-24 items-center my-5 flex space-y-4 flex-col overflow-y-auto">
+            @for (trajet of trajets2; track trajet.item.id) {
+               <div class="flex sm:gap-4 sm:space-x-4 w-full sm:w-5/6 md:w-4/6">
+                  <div  (click)="choise(trajet.item)" class="flex hover:cursor-pointer hover:shadow-md hover:shadow-gray-900 rounded-md w-full border sm:justify-between sm:mx-2">
+                     <div class=" flex-1 flex flex-col py-2 pl-2">
+                        <h1 class="font-semibold">{{trajet.item.departure_date_time | date:'hh:mm a':'UTC+1':'fr-FR'}} {{infos.departure}}</h1>
+                        <h3>{{trajet.item.arrival_date_time | date:'hh:mm a':'UTC+1':'fr-FR'}} {{infos.destination}}</h3>
+                        <div class="flex items-center space-x-1 self-start"><mat-icon>schedule</mat-icon><span>{{formatDuration(trajet.item.duration!)}}</span> <span [class.cacher]="!getCorrespondance(trajet.item)">{{getCorrespondance(trajet.item)}}</span></div>
+                     </div>
+                     <div class="sm:hidden flex flex-col self-center">
+                        <span class="text-gray-400">Dès</span>
+                        <h1 class="font-bold">{{trajet.item.price|currency:'EUR' }}</h1>
+                        <div class="flex items-center space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
+                     </div>
+                     <div class="flex items-center self-end pr-2 pb-2 space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
+                  </div>
+                  <div (click)="choise(trajet.item)" class="hidden hover:cursor-pointer border rounded-md hover:shadow-gray-900 hover:shadow-md sm:flex sm:flex-col gap-1 items-center justify-center w-24 px-4">
+                     <span class="text-gray-400">Dès</span>
+                     <h1 class="font-bold">{{trajet.item.price|currency:'EUR' }}</h1>
+                  </div>
+                  <div  (click)="choise(trajet.item)" class="hidden hover:cursor-pointer border rounded-md sm:flex-col hover:shadow-gray-900 hover:shadow-md sm:flex gap-1 items-center justify-center w-24 px-4">
+                     <span class="text-gray-400">Dès</span>
+                     <h1 class="font-bold">{{getNewPrice(trajet.item.price!)|currency:'EUR' }}</h1>
+                  </div>
+               </div>                               
+            }
          </div>
       </router-outlet>
    </div>
-   <!-- <nz-modal
-      [(nzVisible)]="isVisible"
-      [nzTitle]="title_modal"
-      nzCancelText="Annuler"
-      nzOkText="Valider"
-      (nzOnCancel)="handleCancel()"
-      (nzOnOk)="handleOk()"
-   >
-      <ng-template #title_modal>
-         <div class="flex items-center">
-            (<span class="pr-1">{{
-               getHeader({ item: currentTraject!, visible: false })
-            }}</span
-            >)<span class="px-1">{{ infos.departure }}</span>
-            <mat-icon fontIcon="east"></mat-icon>
-            <span class="px-1">{{ infos.destination }}</span>
-         </div>
-      </ng-template>
-      <ng-container *nzModalContent>
-         <mat-vertical-stepper #stepper linear="false">
-            @for (section of currentTraject?.sections; track section.id) {
-               @if (section?.from && section?.to) {
-                  @if ($index < (currentTraject?.sections)!.length - 2) {
-                     <mat-step editable="false">
-                        <ng-template matStepperIcon="chat">
-                           <mat-icon>forum</mat-icon>
-                        </ng-template>
-                        <ng-template matStepContent>
-                           <p>{{ getDescription(section) }}</p>
-                        </ng-template>
-                        <ng-template matStepLabel>{{ section.from.name }}</ng-template>
-                     </mat-step>
-                  } @else {
-                     <mat-step editable="false">
-                        <ng-template matStepLabel>{{ section.to.name }}</ng-template>
-                     </mat-step>
-                  }
-               }
-            }
-         </mat-vertical-stepper>
-      </ng-container>
-   </nz-modal> -->
 </div>
 <ng-template #customIcon><span nz-icon nzType="smile"></span></ng-template>
 
