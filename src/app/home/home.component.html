@@ -12,14 +12,14 @@
          </div>
          <div [class.cacher]="getUrl.includes('profil')" class="sm:mx-24 items-center my-5 flex space-y-4 flex-col overflow-y-auto">
             @for (trajet of trajets2; track trajet.item.id) {
-               <div class="flex sm:gap-4 sm:space-x-4 w-full sm:w-5/6 md:w-4/6">
+               <div class="flex sm:gap-4 sm:space-x-4 w-full sm:px-0 px-2 sm:w-5/6 md:w-4/6">
                   <div  (click)="choise(trajet.item)" class="flex hover:cursor-pointer hover:shadow-md hover:shadow-gray-900 rounded-md w-full border sm:justify-between sm:mx-2">
                      <div class=" flex-1 flex flex-col py-2 pl-2">
                         <h1 class="font-semibold">{{trajet.item.departure_date_time | date:'hh:mm a':'UTC+1':'fr-FR'}} {{infos.departure}}</h1>
                         <h3>{{trajet.item.arrival_date_time | date:'hh:mm a':'UTC+1':'fr-FR'}} {{infos.destination}}</h3>
                         <div class="flex items-center space-x-1 self-start"><mat-icon>schedule</mat-icon><span>{{formatDuration(trajet.item.duration!)}}</span> <span [class.cacher]="!getCorrespondance(trajet.item)">{{getCorrespondance(trajet.item)}}</span></div>
                      </div>
-                     <div class="sm:hidden flex flex-col self-center">
+                     <div class="sm:hidden flex flex-col self-center pr-1">
                         <span class="text-gray-400">Dès</span>
                         <h1 class="font-bold">{{trajet.item.price|currency:'EUR' }}</h1>
                         <div class="flex items-center space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
