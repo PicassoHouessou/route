@@ -17,6 +17,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
  @NgModule({
@@ -36,7 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
        MatMenuModule,
        NzTagModule,
        MatButtonModule,
-       MatIconModule,NzGridModule,MatStepperModule
+       MatIconModule,NzGridModule,MatStepperModule,MatExpansionModule,MatDialogModule
     ],
  })
  export class HomeModule {}

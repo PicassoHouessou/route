@@ -9,6 +9,7 @@ import { formatDate, parseDate } from '../../config/util.date';
 import { HistoricService } from '../statistique/statistique.service';
 import { DATE_FORMAT } from '@/config/constant';
 import { presetColors } from 'ng-zorro-antd/core/color';
+import { Dialog } from '@angular/cdk/dialog';
 interface InfoType {
   departure?: string; destination?: string;
   startDate?: string;
@@ -30,6 +31,11 @@ export class HomeComponent implements OnInit, OnDestroy {
    choise($event: MouseEvent, $traject: JourneyItem) {
       $event.stopPropagation();
       this.currentTraject = $traject;
+      this.dialog.open(this.current_itineraire,{
+         width:"50%",
+         height:"50%"
+         
+      });
    }
 
    isVisible = false;
@@ -44,15 +50,15 @@ export class HomeComponent implements OnInit, OnDestroy {
          depart: this.infos.departure,
          startDate: this.infos.startDate,
       });
-      this.isVisible = false;
+      this.dialog.closeAll();
    }
 
    handleCancel(): void {
-      console.log('Button cancel clicked!');
-      this.isVisible = false;
+      this.dialog.closeAll();
    }
 
-   @ViewChild(TemplateRef) button: TemplateRef<unknown> | undefined;
+   @ViewChild('button') button: TemplateRef<unknown> | undefined;
+   @ViewChild('current_itineraire') current_itineraire!: TemplateRef<any>;
 
    parseDate(arg0: string | undefined) {
       return parseDate(arg0!);
@@ -63,6 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       private readonly apiService: ApiServiceService,
       private readonly router: Router,
       private readonly hisService: HistoricService,
+      private readonly dialog:Dialog
    ) {
       this.userSubscription = this.user$.subscribe((aUser: User | null) => {
          this.email = aUser?.email;
@@ -122,14 +129,11 @@ export class HomeComponent implements OnInit, OnDestroy {
          return '';
       }
       let title = this.formatDuration(traject?.duration!);
-      // if (traject?.nb_transfers! > 0) {
-      //   title = title+` ${traject?.nb_transfers} correspondances`;
-      // }
       return `${title}`;
    }
 
    getTraject($event: any[]) {
-      this.trajets2 = $event.map((t) => ({ item: t, visible: false }));
+      this.trajets2 = $event.map((t) => ({ item: {...t,price:Math.random()*150}, visible: false }));
       this.trajets2[0].visible = true;
    }
 

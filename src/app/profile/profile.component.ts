@@ -66,7 +66,7 @@ export class ProfileComponent implements AfterViewInit {
          const res=await this.historicService.getAllHistoric(this.$user?.email as string);
          if (!res.empty) {
 
-            res.forEach(doc=>this.historiques.push(doc.data() as Historic));
+            res.forEach(doc=>this.historiques=[...this.historiques,{depart:doc.data()['depart'],destination:doc.data()['destination'],id:doc.id,startDate:doc.data()['startDate'],}]);
          }
       } catch (error) {
          console.log(error);
@@ -100,7 +100,7 @@ export class ProfileComponent implements AfterViewInit {
 
    deleteHistoric(hist:Historic):void{
       this.historicService.deleteHistoric(hist)
-      .then(()=>this.historiques=this.historiques.filter(h=>h.startDate!==hist.startDate))
+      .then(()=>this.historiques=this.historiques.filter(h=>h.id!==hist.id))
       .catch(error=>console.log("echec de la suppression"));
    }
 
