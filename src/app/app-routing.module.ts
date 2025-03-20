@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
-import {  AuthGuard, redirectUnauthorizedTo,redirectLoggedInTo } from '@angular/fire/auth-guard'; 
+import { PaymentComponent } from './payment/payment.component';
+import {  AuthGuard, redirectUnauthorizedTo,redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
     data:{
       authGuardPipe: redirectUnauthorizedToLanding
     },
-    title:'Page d\'accueil',
+    title:'Accueil',
     children:[
       {
         path:'profil',
@@ -29,6 +30,15 @@ const routes: Routes = [
         runGuardsAndResolvers:(from,to)=>from.url===to.url
       },
     ]
+  },
+  {
+    path:'payment',
+    component:PaymentComponent,
+    canActivate:[AuthGuard],
+    data:{
+      authGuardPipe: redirectUnauthorizedToLanding
+    },
+    title:'Paiement',
   },
   {
     path:'login',
@@ -58,7 +68,7 @@ const routes: Routes = [
     pathMatch:'full',
     title:'Non trouver'
   }
-  
+
 ];
 
 @NgModule({

@@ -20,6 +20,7 @@ import { HomeModule } from './home/home.module';
 import { StatistiqueModule } from './statistique/statistique.module';
 import { ProfileModule } from './profile/profile.module';
 import { IconsProviderModule } from '@/app/icons-provider.module';
+import { PaymentComponent } from '@/app/payment/payment.component';
 
 registerLocaleData(fr);
 
@@ -27,6 +28,7 @@ registerLocaleData(fr);
   declarations: [
     AppComponent,
     NotFoundComponent,
+    PaymentComponent
   ],
   imports: [
     IconsProviderModule,
