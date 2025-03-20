@@ -2,8 +2,8 @@
    <app-header />
    <div class="flex-grow">
       <router-outlet>
-         <div [class.cacher]="getUrl.includes('profil')" class="" nz-row>
-            <div nz-col nzSpan="12" nzOffset="6">
+         <div [class.cacher]="getUrl.includes('profil')" class="flex justify-center">
+            <div class="sm:w-4/6 w-5/6">
                <app-reservation
                   (trajets)="getTraject($event)"
                   (infos)="getInfos($event)"
@@ -126,8 +126,8 @@
 <ng-template #customIcon><span nz-icon nzType="smile"></span></ng-template>
 
 <ng-template #current_itineraire>
-   <div mat-dialog-title class="flex items-center justify-between  rounded-t-md bg-white">
-      <span class="flex items-center p-2">
+   <div mat-dialog-title>
+      <span class="flex items-center">
          (<span class="pr-1">{{
          getHeader({ item: currentTraject!, visible: false })
          }}</span
@@ -147,7 +147,7 @@
                         <mat-icon>forum</mat-icon>
                      </ng-template>
                      <ng-template matStepContent>
-                        <p>{{ getDescription(section) }}</p>
+                        <p>{{ getDescription(section)}}</p>
                      </ng-template>
                      <ng-template matStepLabel>{{ section.from.name }}</ng-template>
                   </mat-step>
@@ -160,7 +160,7 @@
          }
       </mat-vertical-stepper>
    </mat-dialog-content>
-   <mat-dialog-actions class="flex items-center justify-end  py-2 rounded-b-md bg-white">
+   <mat-dialog-actions >
       <button mat-flat-button mat-dialog-close class="" (click)="handleOk()" color="primary" cdkFocusInitial>Valider</button>
       <button mat-flat-button mat-dialog-close class="mx-2" (click)="handleCancel()" color="warn">Annuler</button>
    </mat-dialog-actions>

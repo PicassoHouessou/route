@@ -10,8 +10,8 @@
         <button type="button" mat-button [matMenuTriggerFor]="mobile_menu" class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-900" aria-controls="mobile-menu" aria-expanded="false">
           <div> 
             <mat-menu #mobile_menu="matMenu">
-            <a mat-menu-item routerLink="/profil">Profil</a>
-            <li mat-menu-item (click)="logOut()">Se déconnecter</li>
+            <a mat-menu-item routerLink="/profil"><mat-icon fontIcon="manage_accounts"></mat-icon>Profil</a>
+            <li mat-menu-item (click)="logOut()"><mat-icon fontIcon="logout"></mat-icon>Se déconnecter</li>
           </mat-menu>
         </div>
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -26,11 +26,11 @@
         <div class="relative ml-4 flex-shrink-0">
           <div>
             <button mat-button color="primary" [matMenuTriggerFor]="menu">
-              {{email}}
+              <mat-icon fontIcon="person"></mat-icon>{{email}}
             </button>
             <mat-menu #menu="matMenu">
-              <a mat-menu-item routerLink="/profil">Profil</a>
-              <li mat-menu-item (click)="logOut()">Se déconnecter</li>
+              <a mat-menu-item routerLink="/profil"><mat-icon fontIcon="manage_accounts"></mat-icon>Profil</a>
+              <li mat-menu-item (click)="logOut()"><mat-icon fontIcon="logout"></mat-icon>Se déconnecter</li>
             </mat-menu>
           </div>
         </div>
