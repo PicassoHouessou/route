@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
    import { MatSnackBar } from '@angular/material/snack-bar';
- import { Router } from '@angular/router';
+ import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -9,21 +9,31 @@ import { NonNullableFormBuilder, Validators } from '@angular/forms';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent  {
+export class PaymentComponent  implements OnInit {
 
   amount: number ;
   tax: number ;
+  productName: string ;
 
   private _snackBar = inject(MatSnackBar);
 
   private formBuilder = inject(NonNullableFormBuilder);
-
+  private activatedRoute = inject(ActivatedRoute);
   constructor(private readonly router:Router) {
     this.amount=0;
+    this.productName="";
     this.tax=0;
   }
-
-
+  get totalAmount():number{
+    return this.amount+this.tax;
+  }
+  ngOnInit() {
+     this.activatedRoute.queryParams.subscribe(params => {
+      this.amount=Number( params?.['amount'] ??0);
+      this.productName= params?.['product'];
+      this.tax= this.amount * 0.2 ;
+    })
+  }
     form = this.formBuilder.group({
       email: this.formBuilder.control('', [Validators.required,Validators.email]),
       fullName: this.formBuilder.control('', [Validators.required,Validators.maxLength(200)]),
@@ -32,6 +42,7 @@ export class PaymentComponent  {
       cvc:this.formBuilder.control(333,[Validators.required,Validators.pattern("^[0-9]{3}$")]),
       address:this.formBuilder.control(null,[Validators.required,Validators.minLength(5),Validators.maxLength(50)]),
     });
+
   get email() {
     return this.form.get('email');
   }
