@@ -27,13 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
    getNewPrice(price:number){
-      return 1.5*price;
+      return 1.2*price;
    }
    currentTraject: JourneyItem | null = null;
 
    choise( $traject: JourneyItem) {
       this.currentTraject = $traject;
-      console.log(this.currentTraject);
       this.dialog.open(this.current_itineraire,{
          width:"50%",
          height:"50%",

@@ -24,7 +24,7 @@
                         <h1 class="font-bold">{{trajet.item.price|currency:'EUR' }}</h1>
                         <div class="flex items-center space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
                      </div>
-                     <div class="flex items-center self-end pr-2 pb-2 space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
+                     <div class="hidden sm:flex items-center self-end pr-2 pb-2 space-x-1"><mat-icon>wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
                   </div>
                   <div (click)="choise(trajet.item)" class="hidden hover:cursor-pointer border rounded-md hover:shadow-gray-900 hover:shadow-md sm:flex sm:flex-col gap-1 items-center justify-center w-24 px-4">
                      <span class="text-gray-400">Dès</span>
