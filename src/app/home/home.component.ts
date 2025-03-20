@@ -10,6 +10,7 @@ import { HistoricService } from '../statistique/statistique.service';
 import { DATE_FORMAT } from '@/config/constant';
 import { presetColors } from 'ng-zorro-antd/core/color';
 import { Dialog } from '@angular/cdk/dialog';
+import { MatDialog } from '@angular/material/dialog';
 interface InfoType {
   departure?: string; destination?: string;
   startDate?: string;
@@ -33,8 +34,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.currentTraject = $traject;
       this.dialog.open(this.current_itineraire,{
          width:"50%",
-         height:"50%"
-         
+         height:"50%",
+         exitAnimationDuration:"500ms",
+         enterAnimationDuration:"500ms"
       });
    }
 
@@ -69,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       private readonly apiService: ApiServiceService,
       private readonly router: Router,
       private readonly hisService: HistoricService,
-      private readonly dialog:Dialog
+      private readonly dialog:MatDialog
    ) {
       this.userSubscription = this.user$.subscribe((aUser: User | null) => {
          this.email = aUser?.email;
@@ -134,6 +136,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    getTraject($event: any[]) {
       this.trajets2 = $event.map((t) => ({ item: {...t,price:Math.random()*150}, visible: false }));
+      console.log($event);
       this.trajets2[0].visible = true;
    }
 
