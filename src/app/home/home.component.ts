@@ -33,8 +33,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    choise( $traject: JourneyItem) {
       this.currentTraject = $traject;
+      console.log($traject);
       this.dialog.open(this.current_itineraire,{
-         width:"50%",
+         width:"35%",
          height:"50%",
          exitAnimationDuration:"500ms",
          enterAnimationDuration:"500ms"
@@ -123,8 +124,30 @@ export class HomeComponent implements OnInit, OnDestroy {
       .join(':');
   }
 
+  isTGV(traject:JourneyItem):boolean{
+
+      const tgv=traject.sections?.find(s=>s.display_informations && ((s.display_informations.commercial_mode as string)
+      .includes('TGV') ||(s.display_informations.commercial_mode as string).includes('INOUI')));
+      if (!tgv) { 
+         return false;
+      }
+      else{
+         return true;
+      }
+  }
+
   getDescription(section:SectionItem){
-   return this.formatDuration(section.duration);
+      let str=this.formatDuration(section.duration);
+      if (section.display_informations) {
+         str=`(${str}) ${section.display_informations.commercial_mode}(${section.display_informations.code})`;
+      }
+      else if (section.mode) {
+         str=`(${str}) ${section.mode}`;
+      }
+      else{
+         str=`(${str}) ${section.type}`;
+      }
+      return str;
   }
 
   getHeader({ item:traject }: CustomType) {
