@@ -138,7 +138,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   getDescription(section:SectionItem){
       let str=this.formatDuration(section.duration);
       if (section.display_informations) {
-         str=`(${str}) ${section.display_informations.commercial_mode}(${section.display_informations.code})`;
+         str=`(${str}) ${section.display_informations.commercial_mode}
+               (${(section.display_informations.code as string).includes('INOUI')?'':section.display_informations.code})`;
       }
       else if (section.mode) {
          str=`(${str}) ${section.mode}`;
@@ -168,20 +169,8 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
    getTraject($event: any[]) {
-      this.trajets2 = $event.map((t) => ({ item: {...t,price:Math.random()*150}, visible: false }));
+      this.trajets2 = $event.map((t) => ({ item: {...t,price:this.isTGV(t)?80:Math.random()*40}, visible: false }));
       this.trajets2[0].visible = true;
-   }
-
-   getDepartureHour(section:SectionItem){
-
-      const departure_hour=section.departure_date_time.split('T')[1].substring(0,2);
-      const departure_minute=section.departure_date_time.split('T')[1].substring(2,4);
-      const departure_second=section.departure_date_time.split('T')[1].substring(4,6);
-      const arrival_hour=section.arrival_date_time.split('T')[1].substring(0,2);
-      const arrival_minute=section.arrival_date_time.split('T')[1].substring(2,4);
-      const arrival_second=section.arrival_date_time.split('T')[1].substring(4,6);
-      const duration=`${Math.abs(parseInt(departure_hour)-parseInt(arrival_hour))}:${Math.abs(parseInt(arrival_minute)-parseInt(departure_minute))}`
-      return [`${departure_hour}:${departure_minute}`,duration];
    }
 
    protected readonly DATE_FORMAT = DATE_FORMAT;
