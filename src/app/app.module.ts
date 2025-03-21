@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +10,7 @@ import { provideHttpClient, withInterceptors} from "@angular/common/http";
 import {requestInterceptor} from "./auth.interceptor";
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { fr_FR } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
 import fr from '@angular/common/locales/fr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
@@ -65,7 +65,9 @@ registerLocaleData(fr);
     },
     provideHttpClient(withInterceptors([requestInterceptor])),
     { provide: NZ_I18N, useValue: fr_FR },
-    provideHttpClient()
+    provideHttpClient(),
+    {provide: DATE_PIPE_DEFAULT_OPTIONS, useValue: {timezone: 'UTC+1'}},
+    {provide:LOCALE_ID,useValue:'fr-FR'}
   ],
   bootstrap: [AppComponent]
 })
