@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       let str=this.formatDuration(section.duration);
       if (section.display_informations) {
          str=`(${str}) ${section.display_informations.commercial_mode}
-               (${(section.display_informations.code as string).includes('INOUI')?'':section.display_informations.code})`;
+               ${(section.display_informations.commercial_mode as string).includes('INOUI')?'':`(${section.display_informations.code})`}`;
       }
       else if (section.mode) {
          str=`(${str}) ${section.mode}`;
