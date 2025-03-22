@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
    getNewPrice(price:number){
-      return 1.2*price;
+      return this.roundTwoDecimals(1.2*price);
    }
    currentTraject: JourneyItem | null = null;
 
@@ -54,6 +54,11 @@ export class HomeComponent implements OnInit, OnDestroy {
          startDate: this.infos.startDate,
       });
       this.dialog.closeAll();
+
+     this.router.navigate(['/payment'],{queryParams:{
+       product:this.infos.departure+" "+ this.infos.destination,
+         amount: this.currentTraject?.price??0
+       }})
    }
 
    handleCancel(): void {
@@ -127,7 +132,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       const tgv=traject.sections?.find(s=>s.display_informations && ((s.display_informations.commercial_mode as string)
       .includes('TGV') ||(s.display_informations.commercial_mode as string).includes('INOUI')));
-      if (!tgv) { 
+      if (!tgv) {
          return false;
       }
       else{
@@ -168,8 +173,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       return '';
    }
 
+   roundTwoDecimals(price:number){
+     price = Math.round((price + Number.EPSILON) * 100) / 100;
+     return price;
+   }
    getTraject($event: any[]) {
-      this.trajets2 = $event.map((t) => ({ item: {...t,price:this.isTGV(t)?80:Math.random()*40}, visible: false }));
+
+
+      this.trajets2 = $event.map((t) => {
+        let price = 0;
+        price = this.isTGV(t)?80:Math.random()*40
+        price = this.roundTwoDecimals(price);
+        console.log(price);
+
+        return { item: {...t,price:this.isTGV(t)?80:price}, visible: false };
+      });
       this.trajets2[0].visible = true;
    }
 
