@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    choise( $traject: JourneyItem) {
       this.currentTraject = $traject;
       this.dialog.open(this.current_itineraire,{
-         width:"35%",
+         width:"75%",
          height:"50%",
          exitAnimationDuration:"500ms",
          enterAnimationDuration:"500ms"
@@ -119,6 +119,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
    }
 
+   sectionWithTGV(section:SectionItem){
+      return section.display_informations && (section.display_informations.commercial_mode as string).includes('INOUI');
+   }
+
    formatDuration(seconds:number) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -182,11 +186,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.trajets2 = $event.map((t) => {
         let price = 0;
-        price = this.isTGV(t)?80:Math.random()*40
+        price = this.isTGV(t)?Math.random()*40+50:Math.random()*40
         price = this.roundTwoDecimals(price);
-        console.log(price);
 
-        return { item: {...t,price:this.isTGV(t)?80:price}, visible: false };
+        return { item: {...t,price:price}, visible: false };
       });
       this.trajets2[0].visible = true;
    }

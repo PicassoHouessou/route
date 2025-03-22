@@ -121,7 +121,7 @@
                   </mat-step>
                } @else {
                   <ng-template matStepContent>
-                     <p>{{getDescription(section)}}</p>
+                     <div class="flex items-center pr-2 pb-2 space-x-1">{{getDescription(section)}}<mat-icon [class.cacher]="!sectionWithTGV(section)">wifi</mat-icon><mat-icon>pedal_bike</mat-icon></div>
                   </ng-template>
                   <mat-step editable="false">
                      <ng-template matStepLabel><span class="pr-2">({{section.departure_date_time|date:'shortTime'}})</span>{{ section.to.name }}</ng-template>
