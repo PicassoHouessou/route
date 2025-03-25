@@ -21,6 +21,8 @@ import { StatistiqueModule } from './statistique/statistique.module';
 import { ProfileModule } from './profile/profile.module';
 import { IconsProviderModule } from '@/app/icons-provider.module';
 import { PaymentComponent } from './payment/payment.component';
+import { HeaderComponent } from './header/header.component'; // adapte le chemin si besoin
+
 
 registerLocaleData(fr);
 
@@ -28,7 +30,7 @@ registerLocaleData(fr);
   declarations: [
     AppComponent,
     NotFoundComponent,
-    PaymentComponent
+    PaymentComponent,
   ],
   imports: [
     IconsProviderModule,
@@ -36,6 +38,7 @@ registerLocaleData(fr);
     AppRoutingModule,
     ProfileModule,
     AuthModule,
+
     HomeModule,ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp({
       "projectId":"route-b52d9",
