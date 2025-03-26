@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    choise( $traject: JourneyItem) {
       this.currentTraject = $traject;
       this.dialog.open(this.current_itineraire,{
-         width:"75%",
+         width:"500px",
          height:"50%",
          exitAnimationDuration:"500ms",
          enterAnimationDuration:"500ms"
