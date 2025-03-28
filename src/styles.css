@@ -4,3 +4,16 @@
 
 html, body { height: 100%; margin: 0; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #f3f3f8; }
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  body {
+    background: url("assets/sncf_background.png") no-repeat center center;
+    background-size: cover;
+  }
+  
