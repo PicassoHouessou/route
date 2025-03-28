@@ -13,7 +13,8 @@ html, body {
   }
   
   body {
-    background: url("assets/sncf_background.png") no-repeat center center;
-    background-size: cover;
+    /* background: url("assets/sncf_background.png") no-repeat center center;
+    background-size: cover; */
+    @apply bg-[url('assets/sncf_background.png')] bg-cover
   }
   
